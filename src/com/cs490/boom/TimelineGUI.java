@@ -32,6 +32,8 @@ public class TimelineGUI extends javax.swing.JPanel {
 
         setMinimumSize(new java.awt.Dimension(200, 200));
 
+        jSlider1.setValue(150);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
