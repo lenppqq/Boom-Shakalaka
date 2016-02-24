@@ -33,7 +33,7 @@ public class MusicAnalyzer {
     public final static int R = 256; //result levels
     /**
      *
-     * @param name the music file name
+     * @param name the music file path and name
      */
     public static ArrayList<int[]> openMusic(String name) {
         //from the file name get the input file stream
