@@ -31,4 +31,68 @@ public class Video {
 		this.duration = duration;
 		points = new ArrayList<Point>();
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	
+	public int getSize() {
+		return size;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
+
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setPreference(int preference) {
+		this.preference = preference;
+	}
+
+	public int getPreference() {
+		return preference;
+	}
+	
+	public void setTag(int tag) {
+		this.tag = tag;
+	}
+
+	public int getTag() {
+		return tag;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setDuration(int duration) {
+		this.groupId = groupId;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public ArrayList<Point> getPoints() {
+		return points;
+	}
+
+	public void addPoint(Point point) {
+		points.add(point);
+	}
+
+	public void deletePoint(Point point) {
+		points.remove(points.indexOf(point));
+	}
 }

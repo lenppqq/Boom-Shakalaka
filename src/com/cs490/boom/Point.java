@@ -13,4 +13,36 @@ public class Point {
         this.tag = tag;
         this.preference = preference;
     }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public void setPreference(int preference) {
+        this.preference = preference;
+    }
+
+    public int getPreference() {
+        return preference;
+    }
 }
