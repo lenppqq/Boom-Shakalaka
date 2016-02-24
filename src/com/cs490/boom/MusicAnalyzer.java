@@ -106,6 +106,21 @@ public class MusicAnalyzer {
         return result;
     }
 
+    /**
+     *
+     * @author Ris
+     * This function is the starting point of analyzation
+     * 
+     * @param music music object that contains basic music
+     *        information
+     */
+    public void startAnalyze(Music music) {
+        //analyze part
+
+        //storing part
+        Database.add(music);
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
