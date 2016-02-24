@@ -24,30 +24,30 @@ public class Database_Interface {
 	}
     
 	// add_item
-	public static void addItem(int Musicid, String criticalPoints)
+	public static void add(Music mu)
 	{
 		try{
 			String sql = "insert into boom "
-					+   " (Musicid, cp , refer)"
-					+	" values ("+ Integer.toString(Musicid) + ", '"+ criticalPoints +
-					"' , 'null')";
+					+   " (name, path , preference)"
+					+	" values('"+ mu.getName() + "' , '"+ mu.getPath() +
+					"' ," + mu.getPreference() +")";
 			System.out.println(sql);
 			mystat.executeUpdate(sql);
+			System.out.println("add item complete");
 	    }
 		catch(Exception e)
 		{
-			//e.printStackTrace();
-			System.out.println("item insert failed");
+			e.printStackTrace();
+			System.out.println("item add failed");
 		}
-		System.out.println("additem complete");
 	}
 	
 	// delete_item
-	public static void deleteItem(int Musicid)
+	public static void delete_name(String name)
 	{
 		int row = 0;
 		try{
-			String sql = "delete from boom where Musicid =" + Integer.toString(Musicid);
+			String sql = "delete from boom where name ='" + name +"'";
 			row = mystat.executeUpdate(sql);
 	    }
 		catch(Exception e)
@@ -65,56 +65,48 @@ public class Database_Interface {
 	}
 	
 	// get list
-	public static ArrayList<Integer> getMusiclist()
+	public static ArrayList<String> getlist()
 	{
-		ArrayList<Integer> lists = new ArrayList<Integer>();
+		ArrayList<String> lists = new ArrayList<String>();
 		try{
 			String sql;
-			sql = "SELECT Musicid FROM boom";
+			sql = "SELECT name FROM boom";
 			ResultSet rs = mystat.executeQuery(sql);
 	    
 			while(rs.next()){
-				lists.add(rs.getInt("Musicid"));
+				lists.add(rs.getString("name"));
 			}
+			System.out.println("getMusiclist complete");
 		}
 	    catch(SQLException e)
 	    {
 	    	e.printStackTrace();
 	    }
-		System.out.println("getMusiclist complete");
 		return lists;
 	}
-	
+
 	//get item
-	public static String getItem(int musicid)
+	public static Music getrow(String name)
 	{
-		/*int id = musicid;
-		String analysis = "";
+		Music m = new Music();
 		try{
 			String sql;
-			sql = "SELECT Musicid FROM boom";
+			sql = "SELECT * FROM boom where name= '"+ name + "'";
 			ResultSet rs = mystat.executeQuery(sql);
-	    
+			
 			while(rs.next()){
-				if(id == rs)
-				{
-					
-				}
+				m.setName(rs.getString("name"));
+				m.setPath(rs.getString("path"));
+				m.setPreference(rs.getInt("preference"));		
 			}
+			System.out.println(" row return success");
 		}
 	    catch(SQLException e)
 	    {
 	    	e.printStackTrace();
 	    }
-		System.out.println("getMusiclist complete");*/
-		return "";
+		return m;
 	}
 	
-	public static void main(String[] args) {
-		Database_Interface db = new Database_Interface();
-		addItem(158,"cmowmco");
-		System.out.println(getMusiclist());
-		deleteItem(111);
-	}
 
 }
