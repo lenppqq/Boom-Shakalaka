@@ -18,7 +18,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class AddMusicPopUp extends javax.swing.JFrame {
 
     private String fileName;
-    
+    private String filePath;
+    private long fileLength;
     /**
      * Creates new form AddMusicPopUp
      */
@@ -199,8 +200,11 @@ public class AddMusicPopUp extends javax.swing.JFrame {
         
         File f = chooser.getSelectedFile();
         fileName = f.getName().substring(0, f.getName().lastIndexOf("."));
-        String filePath = f.getAbsolutePath();
+        filePath = f.getAbsolutePath();
+        fileLength = f.length();
+        System.out.println("length is " + fileLength);
         filePathField.setText(filePath);
+
     }//GEN-LAST:event_browseBtnActionPerformed
 
     private void filePathFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filePathFieldActionPerformed
@@ -216,6 +220,9 @@ public class AddMusicPopUp extends javax.swing.JFrame {
         } else {
             MusicPanel.myMusicList.add(0, fileName);
             MusicPanel.musicList.updateUI();
+            Music newMusic = new Music(fileName, filePath, fileLength);
+            MainFrame.analyzer.startAnalyze(newMusic);
+            
             this.setVisible(false);
             String grade = GroupButtonUtils.getSelectedButtonText(buttonGroup1);
             System.out.println("grade is " + grade);
