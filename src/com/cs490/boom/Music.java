@@ -6,7 +6,7 @@ public class Music {
 	public int size;
 	public int preference;
 	//critical points
-	public ArrayList<Clip> clips = new ArrayList<Clip>();
+	public ArrayList<Point> points = new ArrayList<Point>();
 	
 	public Music(String name, String path, int size) {
 		this.name = name;
