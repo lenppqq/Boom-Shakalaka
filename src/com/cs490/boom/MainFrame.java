@@ -5,6 +5,8 @@
  */
 package com.cs490.boom;
 
+import javax.media.Player;
+
 /**
  *
  * @author Len
@@ -16,6 +18,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        int durationInMs = (int) (videoPlayerGUI1.player.getDuration().getNanoseconds() / 1000000);
+        timelineGUI1.setData(0, durationInMs, videoPlayerGUI1.player);
     }
 
     /**
@@ -27,11 +31,18 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
+        videoPlayerGUI1 = new com.cs490.boom.VideoPlayerGUI();
         timelineGUI1 = new com.cs490.boom.TimelineGUI();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Boom Shakalaka");
         setMinimumSize(new java.awt.Dimension(500, 500));
+
+        jSplitPane1.setDividerLocation(400);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setTopComponent(videoPlayerGUI1);
+        jSplitPane1.setRightComponent(timelineGUI1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -39,14 +50,14 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(timelineGUI1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(timelineGUI1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -89,6 +100,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSplitPane jSplitPane1;
     private com.cs490.boom.TimelineGUI timelineGUI1;
+    private com.cs490.boom.VideoPlayerGUI videoPlayerGUI1;
     // End of variables declaration//GEN-END:variables
 }

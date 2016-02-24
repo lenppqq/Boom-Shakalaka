@@ -1,5 +1,13 @@
 package com.cs490.boom;
 
+import java.awt.Graphics;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
+import javax.media.Player;
+import javax.media.Time;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,11 +20,30 @@ package com.cs490.boom;
  */
 public class TimelineGUI extends javax.swing.JPanel {
 
+    private int beginning;
+    private int ending;
+    private int beginningInWindow;
+    private int endingInWindow;
+    private int time;
+    private Set<Integer> criticalPoints;
+    private Player player;
+
     /**
      * Creates new form Timeline
      */
     public TimelineGUI() {
         initComponents();
+        criticalPoints = new TreeSet<Integer>();
+        updateTimeLabel();
+    }
+
+    public void setData(int begin, int end, Player player) {
+        beginning = begin;
+        ending = end;
+        beginningInWindow = begin;
+        endingInWindow = end;
+        time = begin;
+        this.player = player;
     }
 
     /**
@@ -29,31 +56,195 @@ public class TimelineGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jSlider1 = new javax.swing.JSlider();
+        minusButton = new javax.swing.JButton();
+        plusButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        pointButton = new javax.swing.JToggleButton();
+        rightButton = new javax.swing.JButton();
+        leftButton = new javax.swing.JButton();
+        timeLinePanel = new javax.swing.JPanel();
 
-        setMinimumSize(new java.awt.Dimension(200, 200));
+        setMinimumSize(new java.awt.Dimension(30, 30));
 
-        jSlider1.setValue(150);
+        jSlider1.setValue(0);
+        jSlider1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
+
+        minusButton.setText("-");
+
+        plusButton.setText("+");
+        plusButton.setToolTipText("");
+
+        jLabel1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
+        jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(0, 27));
+
+        pointButton.setText("·");
+        pointButton.setToolTipText("Press to set a critical point.");
+        pointButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pointButtonActionPerformed(evt);
+            }
+        });
+
+        rightButton.setText(">");
+        rightButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rightButtonActionPerformed(evt);
+            }
+        });
+
+        leftButton.setText("<");
+        leftButton.setToolTipText("");
+        leftButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                leftButtonActionPerformed(evt);
+            }
+        });
+
+        timeLinePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout timeLinePanelLayout = new javax.swing.GroupLayout(timeLinePanel);
+        timeLinePanel.setLayout(timeLinePanelLayout);
+        timeLinePanelLayout.setHorizontalGroup(
+            timeLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        timeLinePanelLayout.setVerticalGroup(
+            timeLinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 373, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(timeLinePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSlider1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(minusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(plusButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(leftButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pointButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rightButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(timeLinePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(leftButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pointButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(plusButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(minusButton))
+                    .addComponent(rightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private int updateTimeLabel() {
+        int value = jSlider1.getValue();
+        time = (int) (beginningInWindow + ((double) value / 100) * (endingInWindow - beginningInWindow));
+        jLabel1.setText(time / 1000 + "." + time % 1000);
+        return time;
+    }
+
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        time = updateTimeLabel();
+        pointButton.setSelected(criticalPoints.contains(time));
+        player.setMediaTime(new Time((long)time * 1000000));
+        player.stop();
+        drawOnPanel();
+        
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private void pointButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pointButtonActionPerformed
+        if (pointButton.isSelected()) {
+            criticalPoints.add(time);
+        } else {
+            criticalPoints.remove(time);
+        }
+        for (Object i : criticalPoints.toArray()) {
+            System.out.print((Integer) i + " ");
+        }
+        System.out.println();
+        drawOnPanel();
+    }//GEN-LAST:event_pointButtonActionPerformed
+
+    private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
+        Object[] criticalArray;
+        criticalArray = criticalPoints.toArray();
+        int index = Arrays.binarySearch(criticalArray, new Integer(time));
+        if (index == criticalArray.length) {
+            index = 0;
+        }
+        if ((Integer)criticalArray[index] == time) {
+            index++;
+        }
+    }//GEN-LAST:event_rightButtonActionPerformed
+
+    private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
+        Object[] criticalArray;
+        criticalArray = criticalPoints.toArray();
+        int index = Arrays.binarySearch(criticalArray, new Integer(time));
+       
+        if (index == criticalArray.length) {
+            index--;
+        }
+        if ((Integer)criticalArray[index] == time) {
+            index--;
+        }
+        if (index == -1) {
+            index = criticalArray.length - 1;
+        }
+    }//GEN-LAST:event_leftButtonActionPerformed
+
+    private void drawOnPanel() {
+        Graphics g = timeLinePanel.getGraphics();
+        g.clearRect(0, 0, timeLinePanel.getWidth(), timeLinePanel.getHeight());
+        //draw vertical line
+        int linePos = (int) Math.round((double) timeLinePanel.getWidth() * (time - beginningInWindow)/(endingInWindow - beginningInWindow));
+        g.drawLine(linePos, 0, linePos, timeLinePanel.getHeight());
+        
+        //drawOval accroding to the criticalPoints
+        for (Integer i : criticalPoints) {
+            if (i >= beginningInWindow && i <= endingInWindow) {
+                int ovalPos = (int) Math.round((double) timeLinePanel.getWidth() * (i - beginningInWindow)/(endingInWindow - beginningInWindow));
+                g.drawOval(ovalPos-4, timeLinePanel.getHeight() / 2, 8, 8);
+            }
+        }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSlider jSlider1;
+    private javax.swing.JButton leftButton;
+    private javax.swing.JButton minusButton;
+    private javax.swing.JButton plusButton;
+    private javax.swing.JToggleButton pointButton;
+    private javax.swing.JButton rightButton;
+    private javax.swing.JPanel timeLinePanel;
     // End of variables declaration//GEN-END:variables
 }
