@@ -31,6 +31,10 @@ import javax.sound.sampled.TargetDataLine;
 public class MusicAnalyzer {
     public final static int S = 256; //Sample per fft run
     public final static int R = 256; //result levels
+    
+    public MusicAnalyzer() {
+    
+    }
     /**
      *
      * @param name the music file path and name
