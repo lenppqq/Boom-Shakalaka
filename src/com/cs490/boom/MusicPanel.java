@@ -6,6 +6,7 @@
 package com.cs490.boom;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,7 +37,7 @@ public class MusicPanel extends javax.swing.JPanel {
             public String getElementAt(int i) { return myMusicList.get(i); }
         });
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +50,7 @@ public class MusicPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         musicList = new javax.swing.JList<>();
         addMusicButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         musicList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -64,6 +66,13 @@ public class MusicPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteMusicButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,7 +81,9 @@ public class MusicPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addMusicButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addMusicButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -82,7 +93,8 @@ public class MusicPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addMusicButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -121,9 +133,32 @@ public class MusicPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_musicListValueChanged
 
+    private void DeleteMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteMusicButtonActionPerformed
+        System.out.println("you click the delete button");
+        //DeleteMusicPopUp pop = new DeleteMusicPopUp();
+        //pop.setLocationRelativeTo(null);
+        //pop.setVisible(true);
+        String value = (String) musicList.getSelectedValue();
+        String val = "Delete \"" + value + "\" ?";
+        if (value == null) {
+            JOptionPane.showMessageDialog(this, "Please Select the music!!! :D", "Warning",JOptionPane.WARNING_MESSAGE);  
+        } else {
+            int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation",JOptionPane.YES_NO_OPTION);
+            if (confirm == 0) {
+                myMusicList.remove(musicList.getSelectedValue());
+                musicList.updateUI();
+            }
+        }
+        
+        for (int i = 0; i < myMusicList.size(); i++) {
+            System.out.println(myMusicList.get(i));
+        }
+    }//GEN-LAST:event_DeleteMusicButtonActionPerformed
+
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addMusicButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JList<String> musicList;
     // End of variables declaration//GEN-END:variables
