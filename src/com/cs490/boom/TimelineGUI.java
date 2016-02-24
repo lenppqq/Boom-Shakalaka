@@ -2,6 +2,7 @@ package com.cs490.boom;
 
 import java.awt.Graphics;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -30,14 +31,22 @@ public class TimelineGUI extends javax.swing.JPanel {
     /**
      * Creates new form Timeline
      */
-    
     public TimelineGUI() {
         initComponents();
-        criticalPoints = new TreeSet<int[]>();
-        updateTimeLabel();
-        this.player = null;
-    }
-    
+
+        Comparator<int[]> comparator = new Comparator<int[]>() {
+            @Override
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
+            }
+        };
+            criticalPoints  = new TreeSet<int[]>(comparator);
+
+            updateTimeLabel();
+             
+            this.player  = null;
+        }
+
     public TimelineGUI(int begin, int end, Player player) {
         initComponents();
         criticalPoints = new TreeSet<int[]>();
@@ -210,7 +219,7 @@ public class TimelineGUI extends javax.swing.JPanel {
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
         time = updateTimeLabel();
-        pointButton.setSelected(criticalPoints.contains(time));
+        pointButton.setSelected(criticalPoints.contains(new int[]{time, 0}));
         if (player != null) {
             player.setMediaTime(new Time((long) time * 1000000));
             player.stop();
@@ -223,10 +232,10 @@ public class TimelineGUI extends javax.swing.JPanel {
         if (pointButton.isSelected()) {
             criticalPoints.add(new int[]{time, 0});
         } else {
-            criticalPoints.remove(time);
+            criticalPoints.remove(new int[]{time, 0});
         }
         for (Object i : criticalPoints.toArray()) {
-            System.out.print((Integer) i + " ");
+            System.out.print(((int[]) i)[0] + " ");
         }
         System.out.println();
         drawOnPanel();

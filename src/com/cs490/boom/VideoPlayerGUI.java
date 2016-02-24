@@ -34,8 +34,6 @@ public class VideoPlayerGUI extends javax.swing.JPanel implements ActionListener
      */
     public VideoPlayerGUI() {
         initComponents();
-        openFile("F:\\hc2.avi");
-
     }
     
     /**

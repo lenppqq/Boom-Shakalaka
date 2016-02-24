@@ -16,12 +16,31 @@ public class VideoMainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
+    
+    private boolean dataSet;
+    
     public VideoMainFrame() {
         initComponents();
+        dataSet = false;
+    }
+    
+    public VideoMainFrame(Video video) {
+        initComponents();
+        videoPlayerGUI1.openFile(video.getPath());
+        int durationInMs = (int) (videoPlayerGUI1.player.getDuration().getNanoseconds() / 1000000);
+        timelineGUI1.setData(0, durationInMs, videoPlayerGUI1.player);
+        dataSet = true;
+    }
+    
+    public void setData(Video video) {
+        if (dataSet) {
+            return;
+        }
+        videoPlayerGUI1.openFile(video.getPath());
         int durationInMs = (int) (videoPlayerGUI1.player.getDuration().getNanoseconds() / 1000000);
         timelineGUI1.setData(0, durationInMs, videoPlayerGUI1.player);
     }
-
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
