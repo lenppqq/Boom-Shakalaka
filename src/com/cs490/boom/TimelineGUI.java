@@ -13,7 +13,6 @@ import javax.media.Time;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Len
@@ -25,16 +24,42 @@ public class TimelineGUI extends javax.swing.JPanel {
     private int beginningInWindow;
     private int endingInWindow;
     private int time;
-    private Set<Integer> criticalPoints;
+    private Set<int[]> criticalPoints;
     private Player player;
 
     /**
      * Creates new form Timeline
      */
+    
     public TimelineGUI() {
         initComponents();
-        criticalPoints = new TreeSet<Integer>();
+        criticalPoints = new TreeSet<int[]>();
         updateTimeLabel();
+        this.player = null;
+    }
+    
+    public TimelineGUI(int begin, int end, Player player) {
+        initComponents();
+        criticalPoints = new TreeSet<int[]>();
+        updateTimeLabel();
+        beginning = begin;
+        ending = end;
+        beginningInWindow = begin;
+        endingInWindow = end;
+        time = begin;
+        this.player = player;
+    }
+
+    public TimelineGUI(int begin, int end) {
+        initComponents();
+        criticalPoints = new TreeSet<int[]>();
+        updateTimeLabel();
+        beginning = begin;
+        ending = end;
+        beginningInWindow = begin;
+        endingInWindow = end;
+        time = begin;
+        this.player = null;
     }
 
     public void setData(int begin, int end, Player player) {
@@ -44,6 +69,15 @@ public class TimelineGUI extends javax.swing.JPanel {
         endingInWindow = end;
         time = begin;
         this.player = player;
+    }
+
+    public void setData(int begin, int end) {
+        beginning = begin;
+        ending = end;
+        beginningInWindow = begin;
+        endingInWindow = end;
+        time = begin;
+        this.player = null;
     }
 
     /**
@@ -75,9 +109,11 @@ public class TimelineGUI extends javax.swing.JPanel {
         });
 
         minusButton.setText("-");
+        minusButton.setEnabled(false);
 
         plusButton.setText("+");
         plusButton.setToolTipText("");
+        plusButton.setEnabled(false);
 
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
         jLabel1.setText("jLabel1");
@@ -92,6 +128,7 @@ public class TimelineGUI extends javax.swing.JPanel {
         });
 
         rightButton.setText(">");
+        rightButton.setEnabled(false);
         rightButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rightButtonActionPerformed(evt);
@@ -100,6 +137,7 @@ public class TimelineGUI extends javax.swing.JPanel {
 
         leftButton.setText("<");
         leftButton.setToolTipText("");
+        leftButton.setEnabled(false);
         leftButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 leftButtonActionPerformed(evt);
@@ -173,15 +211,17 @@ public class TimelineGUI extends javax.swing.JPanel {
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
         time = updateTimeLabel();
         pointButton.setSelected(criticalPoints.contains(time));
-        player.setMediaTime(new Time((long)time * 1000000));
-        player.stop();
+        if (player != null) {
+            player.setMediaTime(new Time((long) time * 1000000));
+            player.stop();
+        }
         drawOnPanel();
-        
+
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void pointButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pointButtonActionPerformed
         if (pointButton.isSelected()) {
-            criticalPoints.add(time);
+            criticalPoints.add(new int[]{time, 0});
         } else {
             criticalPoints.remove(time);
         }
@@ -199,7 +239,7 @@ public class TimelineGUI extends javax.swing.JPanel {
         if (index == criticalArray.length) {
             index = 0;
         }
-        if ((Integer)criticalArray[index] == time) {
+        if ((Integer) criticalArray[index] == time) {
             index++;
         }
     }//GEN-LAST:event_rightButtonActionPerformed
@@ -208,11 +248,11 @@ public class TimelineGUI extends javax.swing.JPanel {
         Object[] criticalArray;
         criticalArray = criticalPoints.toArray();
         int index = Arrays.binarySearch(criticalArray, new Integer(time));
-       
+
         if (index == criticalArray.length) {
             index--;
         }
-        if ((Integer)criticalArray[index] == time) {
+        if ((Integer) criticalArray[index] == time) {
             index--;
         }
         if (index == -1) {
@@ -224,17 +264,17 @@ public class TimelineGUI extends javax.swing.JPanel {
         Graphics g = timeLinePanel.getGraphics();
         g.clearRect(0, 0, timeLinePanel.getWidth(), timeLinePanel.getHeight());
         //draw vertical line
-        int linePos = (int) Math.round((double) timeLinePanel.getWidth() * (time - beginningInWindow)/(endingInWindow - beginningInWindow));
+        int linePos = (int) Math.round((double) timeLinePanel.getWidth() * (time - beginningInWindow) / (endingInWindow - beginningInWindow));
         g.drawLine(linePos, 0, linePos, timeLinePanel.getHeight());
-        
+
         //drawOval accroding to the criticalPoints
-        for (Integer i : criticalPoints) {
-            if (i >= beginningInWindow && i <= endingInWindow) {
-                int ovalPos = (int) Math.round((double) timeLinePanel.getWidth() * (i - beginningInWindow)/(endingInWindow - beginningInWindow));
-                g.drawOval(ovalPos-4, timeLinePanel.getHeight() / 2, 8, 8);
+        for (int[] i : criticalPoints) {
+            if (i[0] >= beginningInWindow && i[0] <= endingInWindow) {
+                int ovalPos = (int) Math.round((double) timeLinePanel.getWidth() * (i[0] - beginningInWindow) / (endingInWindow - beginningInWindow));
+                g.drawOval(ovalPos - 4, timeLinePanel.getHeight() / 2, 8, 8);
             }
         }
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
