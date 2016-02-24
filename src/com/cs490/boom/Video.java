@@ -1,5 +1,7 @@
 package com.cs490.boom;
 
+import java.util.ArrayList;
+
 public class Video {
 	//basic information
 	private final int videoId;
@@ -91,6 +93,6 @@ public class Video {
 	}
 
 	public void deletePoint(Point point) {
-		points.remove(indeOf(point));
+		points.remove(points.indexOf(point));
 	}
 }

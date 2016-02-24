@@ -67,7 +67,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        JFrame f = new VideoMainFrame(new Video("asd", "F:\\hc2.avi", 0));
+        JFrame f = new VideoMainFrame(new Video(0, "asd", "F:\\hc2.avi", 0, 0));
         f.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
