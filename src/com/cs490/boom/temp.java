@@ -16,6 +16,7 @@ public class temp extends javax.swing.JFrame {
      */
     public temp() {
         initComponents();
+      
     }
 
     /**
@@ -43,7 +44,8 @@ public class temp extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(musicPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(musicPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

@@ -22,11 +22,7 @@ public class MusicPanel extends javax.swing.JPanel {
      */
     public MusicPanel() {
         initComponents();
-//        myMusicList = new String[3];
-//        my
-//        myMusicList[0] = "first";
-//        myMusicList[1] = "hello";
-//        myMusicList[2] = "third";
+
         myMusicList.add("first");
         myMusicList.add("helo");
         myMusicList.add("third");
@@ -128,7 +124,7 @@ public class MusicPanel extends javax.swing.JPanel {
         if (evt.getValueIsAdjusting()) {
             String value = (String) musicList.getSelectedValue();
             musicIndex = musicList.getSelectedIndex();
-            System.out.println("you click a button "+value+" and index is "+musicIndex);
+            System.out.println("you click a music "+value+" and index is "+musicIndex);
         }
         
     }//GEN-LAST:event_musicListValueChanged
