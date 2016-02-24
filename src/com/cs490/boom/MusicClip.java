@@ -13,12 +13,12 @@ public class MusicClip {
     public String name;
     public String path;
     public int rating;
-    public float startPosition;
-    public float duration;
+    public int startPosition;
+    public int duration;
     public int climaxId;
     public String climaxTableId;
     
     public MusicClip() {
-        
+         
     }
 }

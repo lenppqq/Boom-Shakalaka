@@ -10,8 +10,8 @@ package com.cs490.boom;
  * @author Len
  */
 public class Point {
-    public float startPosition;
-    public float duration;
+    public int startPosition;
+    public int duration;
     public int tags;
     public int priority;
     
