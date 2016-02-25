@@ -7,6 +7,8 @@ package com.cs490.boom;
 
 import javax.swing.JFrame;
 
+import musicAnalyzer.MusicAnalyzer;
+
 /**
  *
  * @author Len

@@ -1,4 +1,4 @@
-package com.cs490.boom;
+package matcher;
 
 import java.awt.BasicStroke;
 
@@ -25,6 +25,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import musicAnalyzer.MusicAnalyzer;
+
 public class Plotting extends ApplicationFrame 
 {
    public Plotting( String applicationTitle, String chartTitle )
@@ -50,55 +52,23 @@ public class Plotting extends ApplicationFrame
    
    private XYDataset createDataset( )
    {
-	  String name = "F:\\Me\\CloudMusic\\Drop Tower - If Only You.mp3";//scanner.nextLine();
-	  final XYSeries music = new XYSeries( name );          
-      int[] testing = MusicAnalyzer.openMusic(name);
-      
-      int[] indexing = new int[testing.length];
-      for(int i=0; i<testing.length; i++)
-    	  indexing[i] = i;
-      
-	  for(int k=0; k<5; k++)  {
-	      ArrayList<Integer> localMax = new ArrayList<Integer>();
-	      for (int i = 0; i < testing.length-1; i+=2) {
-	    		  localMax.add((testing[i]+testing[i+1])/2);
-	      }
-	      testing = new int[localMax.size()];
-	      for(int j =0;j<localMax.size();j++){
-	    	  testing[j] = localMax.get(j);
-	      }
-	   }
+		String name = "F:\\Me\\CloudMusic\\Maybe In Japan.mp3";// scanner.nextLine();
+		final XYSeries music = new XYSeries(name);
+		int[][] data = MusicAnalyzer.fullFFTAnalyze(MusicAnalyzer.openMusic(name));
+		
+		System.out.println("average1: "+ MusicAnalyzer.averageValue(data));
+		
+		data = MusicAnalyzer.graph_TakeAverage(data, 7);
+		System.out.println("average2: "+ MusicAnalyzer.averageValue(data));
+		System.out.println("dataSize: "+ data.length);
+//		data = MusicAnalyzer.graph_TakeMax(data, 5);
 
-	  for(int k=0; k<2; k++)  {
-	      ArrayList<Integer> localMax = new ArrayList<Integer>();
-	      ArrayList<Integer> localMaxIndex = new ArrayList<Integer>();
-	      for (int i = 1; i < testing.length-1; i++) {
-	    	  if(testing[i-1]<testing[i] && testing[i]>testing[i+1]){
-	    		  localMax.add(testing[i]);
-	    		  localMaxIndex.add(indexing[i]);
-	    	  }
-	          //System.out.println(testing[i]);
-	      }
-	    //  testing = localMax.toArray(Integer);
-	      testing = new int[localMax.size()];
-	      indexing = new int[localMax.size()];
-	      for(int j =0;j<localMax.size();j++){
-	    	  testing[j] = localMax.get(j);
-	    	  indexing[j] = localMaxIndex.get(j);
-	      }
-	   }
-
-	  long average = 0;
-      for(int i=0; i<testing.length; i++){
-    	  average +=testing[i];
-      }
-      average = average/testing.length;
-      System.out.println("average: "+ average);
+		System.out.println("average3: "+ MusicAnalyzer.averageValue(data));
 
       
-      for(int i=0; i<testing.length; i++){
-    	  music.add(i, testing[i]);
-      }
+		for(int i=0; i<data.length; i++){
+			music.add(MusicAnalyzer.realTimeCalculater(data[i][1], data[data.length-1][1], 226000), data[i][0]);
+		}
       
       
 
