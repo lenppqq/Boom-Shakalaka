@@ -5,17 +5,27 @@
  */
 package com.cs490.boom;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Len
  */
 public class MusicMainFrame extends javax.swing.JFrame {
 
+    private Music music;
+
     /**
      * Creates new form MusicMainFrame
      */
     public MusicMainFrame() {
         initComponents();
+    }
+
+    public MusicMainFrame(Music music) {
+        initComponents();
+        this.music = music;
+        timelineGUI1.setData(0, music.size, music.points);
     }
 
     /**
@@ -30,6 +40,11 @@ public class MusicMainFrame extends javax.swing.JFrame {
         timelineGUI1 = new com.cs490.boom.TimelineGUI();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,6 +65,10 @@ public class MusicMainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        music.points = new ArrayList<>(timelineGUI1.criticalPoints);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

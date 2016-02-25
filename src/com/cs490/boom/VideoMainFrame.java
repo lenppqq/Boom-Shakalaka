@@ -5,6 +5,7 @@
  */
 package com.cs490.boom;
 
+import java.util.ArrayList;
 import javax.media.Player;
 
 /**
@@ -16,31 +17,33 @@ public class VideoMainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    
     private boolean dataSet;
-    
+    private Video video;
+
     public VideoMainFrame() {
         initComponents();
         dataSet = false;
     }
-    
+
     public VideoMainFrame(Video video) {
         initComponents();
+        this.video = video;
         videoPlayerGUI1.openFile(video.getPath());
         int durationInMs = (int) (videoPlayerGUI1.player.getDuration().getNanoseconds() / 1000000);
-        timelineGUI1.setData(0, durationInMs, videoPlayerGUI1.player);
+        timelineGUI1.setData(0, durationInMs, this.video.getPoints(), videoPlayerGUI1.player);
         dataSet = true;
     }
-    
+
     public void setData(Video video) {
         if (dataSet) {
             return;
         }
+        this.video = video;
         videoPlayerGUI1.openFile(video.getPath());
         int durationInMs = (int) (videoPlayerGUI1.player.getDuration().getNanoseconds() / 1000000);
-        timelineGUI1.setData(0, durationInMs, videoPlayerGUI1.player);
+        timelineGUI1.setData(0, durationInMs, this.video.getPoints(), videoPlayerGUI1.player);
     }
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +60,11 @@ public class VideoMainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Boom Shakalaka");
         setMinimumSize(new java.awt.Dimension(500, 500));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jSplitPane1.setDividerLocation(400);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -82,6 +90,10 @@ public class VideoMainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        video.points = new ArrayList<>(timelineGUI1.criticalPoints);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -114,7 +126,10 @@ public class VideoMainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VideoMainFrame().setVisible(true);
+                VideoMainFrame f;
+                f = new VideoMainFrame();
+                f.setData(new Video(1, "asd", "f:\\hc2.avi", 0, 0));
+                f.setVisible(true);
             }
         });
     }

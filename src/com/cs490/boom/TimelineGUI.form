@@ -25,7 +25,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="timeLinePanel" max="32767" attributes="0"/>
-                  <Component id="jSlider1" alignment="1" pref="718" max="32767" attributes="0"/>
+                  <Component id="jSlider1" alignment="1" pref="802" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="minusButton" max="32767" attributes="0"/>
@@ -37,6 +37,8 @@
                       <Component id="pointButton" min="-2" pref="57" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="rightButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="tagField" min="-2" pref="42" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" max="32767" attributes="0"/>
                   </Group>
@@ -54,7 +56,10 @@
               <Component id="timeLinePanel" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" alignment="0" min="-2" pref="52" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
+                      <Component id="tagField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="leftButton" alignment="0" min="-2" pref="52" max="-2" attributes="0"/>
                   <Component id="pointButton" alignment="0" min="-2" pref="52" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
@@ -101,7 +106,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="DialogInput" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="0.0"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[0, 27]"/>
         </Property>
@@ -152,10 +157,22 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="373" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="360" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JTextField" name="tagField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tag"/>
+        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[6, 42]"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tagFieldActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
