@@ -21,6 +21,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     public static MusicAnalyzer analyzer;
     public static Database database;
+    public static int vID;
     //public static Matcher matcher;
     
     public MainFrame() {

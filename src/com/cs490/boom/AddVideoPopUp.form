@@ -33,7 +33,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
-                      <Component id="addMusicBtn" min="-2" max="-2" attributes="0"/>
+                      <Component id="addVideoBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -59,7 +59,7 @@
               <Component id="alertMsg" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="addMusicBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addVideoBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="119" max="32767" attributes="0"/>
@@ -84,12 +84,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="addMusicBtn">
+    <Component class="javax.swing.JButton" name="addVideoBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Video"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addMusicBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addVideoBtnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="cancelBtn">
