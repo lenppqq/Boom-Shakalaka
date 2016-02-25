@@ -18,6 +18,7 @@ public class MusicPanel extends javax.swing.JPanel {
     private int musicIndex = -1;
     //public static String[] myMusicList;
     public static ArrayList<String> myMusicList = new ArrayList<String>();
+
     /**
      * Creates new form MusicPanel
      */
@@ -27,14 +28,20 @@ public class MusicPanel extends javax.swing.JPanel {
         myMusicList.add("first");
         myMusicList.add("helo");
         myMusicList.add("third");
-        
+
         musicList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = myMusicList.toArray(new String[myMusicList.size()]);
-            public int getSize() { return myMusicList.size(); }
-            public String getElementAt(int i) { return myMusicList.get(i); }
+
+            public int getSize() {
+                return myMusicList.size();
+            }
+
+            public String getElementAt(int i) {
+                return myMusicList.get(i);
+            }
         });
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +56,11 @@ public class MusicPanel extends javax.swing.JPanel {
         addMusicButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
+        musicList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                musicListMouseClicked(evt);
+            }
+        });
         musicList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 musicListValueChanged(evt);
@@ -104,20 +116,20 @@ public class MusicPanel extends javax.swing.JPanel {
         AddMusicPopUp pop = new AddMusicPopUp();
         pop.setLocationRelativeTo(null);
         pop.setVisible(true);
-        
+
         for (int i = 0; i < myMusicList.size(); i++) {
             System.out.println(myMusicList.get(i));
         }
-        
+
         if (musicIndex < 0) {
             System.out.println("select index");
-            
+
         } else {
             //JOptionPane.showMessageDialog(jButton1, "click");
             //myMusicList[musicIndex] = "this has changed";
             musicList.updateUI();
         }
-        
+
     }//GEN-LAST:event_addMusicButtonActionPerformed
 
     private void musicListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicListValueChanged
@@ -125,9 +137,9 @@ public class MusicPanel extends javax.swing.JPanel {
         if (evt.getValueIsAdjusting()) {
             String value = (String) musicList.getSelectedValue();
             musicIndex = musicList.getSelectedIndex();
-            System.out.println("you click a music "+value+" and index is "+musicIndex);
+            System.out.println("you click a music " + value + " and index is " + musicIndex);
         }
-        
+
     }//GEN-LAST:event_musicListValueChanged
 
     private void DeleteMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteMusicButtonActionPerformed
@@ -140,23 +152,36 @@ public class MusicPanel extends javax.swing.JPanel {
 //        File f = new File(musicPath);       
         System.out.println(getName());
         if (musicName == null) {
-            JOptionPane.showMessageDialog(this, "Please Select the music!!! :D", "Warning",JOptionPane.WARNING_MESSAGE);  
-          
+            JOptionPane.showMessageDialog(this, "Please Select the music!!! :D", "Warning", JOptionPane.WARNING_MESSAGE);
+
         } else {
             String val = "Delete \"" + musicName + "\" ?";
-            int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation",JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation", JOptionPane.YES_NO_OPTION);
             if (confirm == 0) {
-                myMusicList.remove(musicList.getSelectedValue());
+                String name = musicList.getSelectedValue();
+                myMusicList.remove(name);
                 musicList.updateUI();
+                Database.delete_name(name);
             }
         }
-        
+
         for (int i = 0; i < myMusicList.size(); i++) {
             System.out.println(myMusicList.get(i));
         }
     }//GEN-LAST:event_DeleteMusicButtonActionPerformed
 
-  
+    private void musicListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicListMouseClicked
+        int count = evt.getClickCount();
+        if (count == 2) {
+            String name = musicList.getSelectedValue();
+            Music music = Database.getrow(name);
+            new MusicMainFrame(music);
+            Database.delete_name(name);
+            Database.add(music);
+        }
+     }//GEN-LAST:event_musicListMouseClicked
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addMusicButton;
     private javax.swing.JButton jButton1;

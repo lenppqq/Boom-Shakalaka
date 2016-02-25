@@ -51,6 +51,11 @@ public class VideoPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        videoList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoListMouseClicked(evt);
+            }
+        });
         videoList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 videoListValueChanged(evt);
@@ -148,6 +153,14 @@ public class VideoPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void videoListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoListMouseClicked
+        int count = evt.getClickCount();
+        if (count == 2) {
+            String name = videoList.getSelectedValue();
+            Database.
+        }
+    }//GEN-LAST:event_videoListMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
