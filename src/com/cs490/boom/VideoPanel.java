@@ -16,6 +16,7 @@ public class VideoPanel extends javax.swing.JPanel {
     private int videoIndex = -1;
     //public static String[] myMusicList;
     public static ArrayList<String> myVideoList = new ArrayList<String>();
+    public static ArrayList<Video> Videoes = new ArrayList<Video>();
     /**
      * Creates new form VideoPanel
      */
@@ -44,7 +45,7 @@ public class VideoPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         videoList = new javax.swing.JList<>();
         addVideoBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
 
         videoList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -65,10 +66,10 @@ public class VideoPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Delete");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                deleteButtonActionPerformed(evt);
             }
         });
 
@@ -82,7 +83,7 @@ public class VideoPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addVideoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -93,7 +94,7 @@ public class VideoPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addVideoBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(deleteButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -130,7 +131,7 @@ public class VideoPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_videoListValueChanged
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
         System.out.println("you click the delete button");
         //DeleteMusicPopUp pop = new DeleteMusicPopUp();
@@ -139,7 +140,7 @@ public class VideoPanel extends javax.swing.JPanel {
         String value = (String) videoList.getSelectedValue();
         String val = "Delete \"" + value + "\" ?";
         if (value == null) {
-            JOptionPane.showMessageDialog(this, "Please Select the music!!! :D", "Warning",JOptionPane.WARNING_MESSAGE);  
+            JOptionPane.showMessageDialog(this, "Please Select the video!!! :D", "Warning",JOptionPane.WARNING_MESSAGE);  
         } else {
             int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation",JOptionPane.YES_NO_OPTION);
             if (confirm == 0) {
@@ -147,12 +148,12 @@ public class VideoPanel extends javax.swing.JPanel {
                 videoList.updateUI();
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addVideoBtn;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JList<String> videoList;
     // End of variables declaration//GEN-END:variables
