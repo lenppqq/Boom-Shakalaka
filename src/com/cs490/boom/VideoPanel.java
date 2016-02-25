@@ -5,7 +5,6 @@
  */
 package com.cs490.boom;
 
-import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -13,28 +12,26 @@ import javax.swing.JOptionPane;
  *
  * @author mtdtao
  */
-public class MusicPanel extends javax.swing.JPanel {
-
-    private int musicIndex = -1;
+public class VideoPanel extends javax.swing.JPanel {
+    private int videoIndex = -1;
     //public static String[] myMusicList;
-    public static ArrayList<String> myMusicList = new ArrayList<String>();
+    public static ArrayList<String> myVideoList = new ArrayList<String>();
     /**
-     * Creates new form MusicPanel
+     * Creates new form VideoPanel
      */
-    public MusicPanel() {
+    public VideoPanel() {
         initComponents();
-
-        myMusicList.add("first");
-        myMusicList.add("helo");
-        myMusicList.add("third");
+        myVideoList.add("first");
+        myVideoList.add("helo");
+        myVideoList.add("third");
         
-        musicList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = myMusicList.toArray(new String[myMusicList.size()]);
-            public int getSize() { return myMusicList.size(); }
-            public String getElementAt(int i) { return myMusicList.get(i); }
+        videoList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = myVideoList.toArray(new String[myVideoList.size()]);
+            public int getSize() { return myVideoList.size(); }
+            public String getElementAt(int i) { return myVideoList.get(i); }
         });
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,28 +42,33 @@ public class MusicPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        musicList = new javax.swing.JList<>();
-        addMusicButton = new javax.swing.JButton();
+        videoList = new javax.swing.JList<>();
+        addVideoBtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        musicList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        videoList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        videoList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                musicListValueChanged(evt);
+                videoListValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(musicList);
+        jScrollPane1.setViewportView(videoList);
 
-        addMusicButton.setText("add music");
-        addMusicButton.addActionListener(new java.awt.event.ActionListener() {
+        addVideoBtn.setText("Add Video");
+        addVideoBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addMusicButtonActionPerformed(evt);
+                addVideoBtnActionPerformed(evt);
             }
         });
 
         jButton1.setText("Delete");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteMusicButtonActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -76,12 +78,12 @@ public class MusicPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addMusicButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addVideoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,78 +91,69 @@ public class MusicPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addMusicButton)
+                        .addComponent(addVideoBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicButtonActionPerformed
+    private void addVideoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVideoBtnActionPerformed
         // TODO add your handling code here:
-        //DefaultListModel model = new DefaultListModel();
         System.out.println("you click a button");
-        AddMusicPopUp pop = new AddMusicPopUp();
+        AddVideoPopUp pop = new AddVideoPopUp();
         pop.setLocationRelativeTo(null);
         pop.setVisible(true);
+
         
-        for (int i = 0; i < myMusicList.size(); i++) {
-            System.out.println(myMusicList.get(i));
+        for (int i = 0; i < myVideoList.size(); i++) {
+            System.out.println(myVideoList.get(i));
         }
         
-        if (musicIndex < 0) {
+        if (videoIndex < 0) {
             System.out.println("select index");
             
         } else {
             //JOptionPane.showMessageDialog(jButton1, "click");
             //myMusicList[musicIndex] = "this has changed";
-            musicList.updateUI();
+            videoList.updateUI();
         }
-        
-    }//GEN-LAST:event_addMusicButtonActionPerformed
+    }//GEN-LAST:event_addVideoBtnActionPerformed
 
-    private void musicListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicListValueChanged
+    private void videoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_videoListValueChanged
         // TODO add your handling code here:
         if (evt.getValueIsAdjusting()) {
-            String value = (String) musicList.getSelectedValue();
-            musicIndex = musicList.getSelectedIndex();
-            System.out.println("you click a music "+value+" and index is "+musicIndex);
+            String value = (String) videoList.getSelectedValue();
+            videoIndex = videoList.getSelectedIndex();
+            System.out.println("you click a video "+value+" and index is "+videoIndex);
         }
-        
-    }//GEN-LAST:event_musicListValueChanged
+    }//GEN-LAST:event_videoListValueChanged
 
-    private void DeleteMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteMusicButtonActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
         System.out.println("you click the delete button");
         //DeleteMusicPopUp pop = new DeleteMusicPopUp();
         //pop.setLocationRelativeTo(null);
         //pop.setVisible(true);
-        String musicName = (String) musicList.getSelectedValue();
-//        String musicPath = Database.getrow(musicName).getPath();
-//        File f = new File(musicPath);       
-        System.out.println(getName());
-        if (musicName == null) {
+        String value = (String) videoList.getSelectedValue();
+        String val = "Delete \"" + value + "\" ?";
+        if (value == null) {
             JOptionPane.showMessageDialog(this, "Please Select the music!!! :D", "Warning",JOptionPane.WARNING_MESSAGE);  
-          
         } else {
-            String val = "Delete \"" + musicName + "\" ?";
             int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation",JOptionPane.YES_NO_OPTION);
             if (confirm == 0) {
-                myMusicList.remove(musicList.getSelectedValue());
-                musicList.updateUI();
+                myVideoList.remove(videoList.getSelectedValue());
+                videoList.updateUI();
             }
         }
-        
-        for (int i = 0; i < myMusicList.size(); i++) {
-            System.out.println(myMusicList.get(i));
-        }
-    }//GEN-LAST:event_DeleteMusicButtonActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addMusicButton;
+    private javax.swing.JButton addVideoBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JList<String> musicList;
+    public static javax.swing.JList<String> videoList;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,8 +7,8 @@ package com.cs490.boom;
 
 import com.cs490.framework.GroupButtonUtils;
 import java.io.File;
+import static java.lang.Math.toIntExact;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -19,7 +19,7 @@ public class AddMusicPopUp extends javax.swing.JFrame {
 
     private String fileName;
     private String filePath;
-    private long fileLength;
+    private int fileLength;
     /**
      * Creates new form AddMusicPopUp
      */
@@ -190,9 +190,6 @@ public class AddMusicPopUp extends javax.swing.JFrame {
 
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
         // TODO add your handling code here:
-        //MusicPanel.myMusicList[0] = "asdf";
-        //MusicPanel.musicList.updateUI();
-        //this.setVisible(false);
         JFileChooser chooser = new JFileChooser();
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("MP3 Music File", "mp3"));
         chooser.setAcceptAllFileFilterUsed(false);
@@ -201,7 +198,7 @@ public class AddMusicPopUp extends javax.swing.JFrame {
         File f = chooser.getSelectedFile();
         fileName = f.getName().substring(0, f.getName().lastIndexOf("."));
         filePath = f.getAbsolutePath();
-        fileLength = f.length();
+        fileLength = toIntExact(f.length());
         System.out.println("length is " + fileLength);
         filePathField.setText(filePath);
 
@@ -221,10 +218,13 @@ public class AddMusicPopUp extends javax.swing.JFrame {
             MusicPanel.myMusicList.add(0, fileName);
             MusicPanel.musicList.updateUI();
             Music newMusic = new Music(fileName, filePath, fileLength);
-            MainFrame.analyzer.startAnalyze(newMusic);
+            String grade = GroupButtonUtils.getSelectedButtonText(buttonGroup1);
+            newMusic.setPreference(Integer.parseInt(grade));
+//            MainFrame.analyzer.startAnalyze(newMusic);
+            Database.add(newMusic);
             
             this.setVisible(false);
-            String grade = GroupButtonUtils.getSelectedButtonText(buttonGroup1);
+            
             System.out.println("grade is " + grade);
         }
     }//GEN-LAST:event_addMusicBtnActionPerformed
