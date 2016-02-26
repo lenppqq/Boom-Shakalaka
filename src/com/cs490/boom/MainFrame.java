@@ -5,6 +5,8 @@
  */
 package com.cs490.boom;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import javax.swing.JFrame;
 import matcher.Matcher;
 
@@ -64,7 +66,14 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void matchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchButtonActionPerformed
-        Matcher.matchAndPlay(videoPanel1.videos);
+        ArrayList<Video> sortedVideos = new ArrayList<>(videoPanel1.videos);
+        sortedVideos.sort(new Comparator<Video>() {
+            @Override
+            public int compare(Video o1, Video o2) {
+                return o1.duration - o2.duration;
+            }
+        });
+        Matcher.matchAndPlay(sortedVideos);
     }//GEN-LAST:event_matchButtonActionPerformed
 
     /**
