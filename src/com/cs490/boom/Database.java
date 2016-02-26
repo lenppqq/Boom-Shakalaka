@@ -6,19 +6,20 @@ import java.util.*;
 public class Database {
 
 	// connection
-	static Connection mycon;
-	static Statement mystat;
-
+	public static Connection mycon;
+	public static Statement mystat;
+        public static Database database;
 	// construction
 	public Database() {
 		String user = "root";
-		String password = "wly12345";
+		String password = "123456";
 		try {
 			mycon = DriverManager.getConnection("jdbc:mysql://localhost:3306/boom_database", user, password);
 			mystat = mycon.createStatement();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+                database = this;
 	}
 
 	// add_item

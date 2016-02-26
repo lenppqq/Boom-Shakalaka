@@ -24,6 +24,10 @@ public class MusicPanel extends javax.swing.JPanel {
      */
     public MusicPanel() {
         initComponents();
+        ArrayList<String> nameList = Database.getlist();
+        for (String name : nameList) {
+            myMusicList.add(name);
+        }
         musicList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = myMusicList.toArray(new String[myMusicList.size()]);
 
@@ -170,9 +174,7 @@ public class MusicPanel extends javax.swing.JPanel {
         if (count == 2) {
             String name = musicList.getSelectedValue();
             Music music = Database.getrow(name);
-            new MusicMainFrame(music);
-            Database.delete_name(name);
-            Database.add(music);
+            new MusicMainFrame(music).setVisible(true);
         }
      }//GEN-LAST:event_musicListMouseClicked
 
