@@ -219,6 +219,14 @@ public class AddMusicPopUp extends javax.swing.JFrame {
             MusicPanel.musicList.updateUI();
             Music newMusic = new Music(fileName, filePath, fileLength);
             String grade = GroupButtonUtils.getSelectedButtonText(buttonGroup1);
+            
+            if (grade == "1(lowest)") {
+                grade = "1";
+            }
+            if (grade == "5(highest)") {
+                grade = "5";
+            }
+            
             newMusic.setPreference(Integer.parseInt(grade));
 //            MainFrame.analyzer.startAnalyze(newMusic);
             Database.add(newMusic);
