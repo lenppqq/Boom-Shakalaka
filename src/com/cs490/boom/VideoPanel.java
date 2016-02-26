@@ -16,15 +16,12 @@ public class VideoPanel extends javax.swing.JPanel {
     private int videoIndex = -1;
     //public static String[] myMusicList;
     public static ArrayList<String> myVideoList = new ArrayList<String>();
-    public static ArrayList<Video> Videoes = new ArrayList<Video>();
+    public static ArrayList<Video> videos = new ArrayList<Video>();
     /**
      * Creates new form VideoPanel
      */
     public VideoPanel() {
         initComponents();
-        myVideoList.add("first");
-        myVideoList.add("helo");
-        myVideoList.add("third");
         
         videoList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = myVideoList.toArray(new String[myVideoList.size()]);
@@ -157,9 +154,11 @@ public class VideoPanel extends javax.swing.JPanel {
 
     private void videoListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoListMouseClicked
         int count = evt.getClickCount();
+        System.out.println( count);
         if (count == 2) {
             String name = videoList.getSelectedValue();
-            Database.
+            Video video = videos.get(videoList.getSelectedIndex());
+            new VideoMainFrame(video).setVisible(true);
         }
     }//GEN-LAST:event_videoListMouseClicked
 

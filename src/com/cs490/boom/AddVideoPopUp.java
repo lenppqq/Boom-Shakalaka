@@ -22,12 +22,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author mtdtao
  */
 public class AddVideoPopUp extends javax.swing.JFrame {
-    
+
     private String fileName;
     private String filePath;
     private int fileDuration;
     private int fileLength;
     private File f;
+
     /**
      * Creates new form AddVideoPopUp
      */
@@ -50,7 +51,7 @@ public class AddVideoPopUp extends javax.swing.JFrame {
         cancelBtn = new javax.swing.JButton();
         alertMsg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         filePathField.setEnabled(false);
         filePathField.addActionListener(new java.awt.event.ActionListener() {
@@ -131,25 +132,22 @@ public class AddVideoPopUp extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("MP4 Music File", "mp4"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("AVI file", "avi"));
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.showOpenDialog(null);
-        
-        f = chooser.getSelectedFile();
-        fileName = f.getName().substring(0, f.getName().lastIndexOf("."));
-        filePath = f.getAbsolutePath();
-        f.exists();
         try {
-            Player player = Manager.createRealizedPlayer(f.toURI().toURL());
-            fileDuration = (int)(player.getDuration().getNanoseconds()/1000000);
-        } catch (IOException ex) {
-            Logger.getLogger(AddVideoPopUp.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoPlayerException ex) {
-            Logger.getLogger(AddVideoPopUp.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (CannotRealizeException ex) {
+            f = chooser.getSelectedFile();
+
+            fileName = f.getName().substring(0, f.getName().lastIndexOf("."));
+            filePath = f.getAbsolutePath();
+            f.exists();
+
+            Player player = Manager.createPlayer(f.toURI().toURL());
+            fileDuration = (int) (player.getDuration().getNanoseconds() / 1000000);
+        } catch (Exception ex) {
             Logger.getLogger(AddVideoPopUp.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         fileLength = toIntExact(f.length());
         System.out.println("length is " + fileLength);
         filePathField.setText(filePath);
@@ -163,15 +161,15 @@ public class AddVideoPopUp extends javax.swing.JFrame {
             System.out.println("file exist: " + f.exists());
             alertMsg.setText("File doesn't exist, please select a music");
         } else {
-            Video videofile = new Video (MainFrame.vID++, fileName, filePath, fileLength, fileDuration);
-            VideoPanel.Videoes.add(0, videofile);
+            Video videofile = new Video(MainFrame.vID++, fileName, filePath, fileLength, fileDuration);
+            VideoPanel.videos.add(0, videofile);
             VideoPanel.myVideoList.add(0, fileName);
             VideoPanel.videoList.updateUI();
 //            Music newMusic = new Music(fileName, filePath, fileLength);
             //MainFrame.analyzer.startAnalyze(newMusic);
-            
+
             this.setVisible(false);
-            
+
         }
     }//GEN-LAST:event_addVideoBtnActionPerformed
 

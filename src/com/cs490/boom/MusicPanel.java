@@ -24,11 +24,6 @@ public class MusicPanel extends javax.swing.JPanel {
      */
     public MusicPanel() {
         initComponents();
-
-        myMusicList.add("first");
-        myMusicList.add("helo");
-        myMusicList.add("third");
-
         musicList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = myMusicList.toArray(new String[myMusicList.size()]);
 

@@ -6,7 +6,6 @@
 package com.cs490.boom;
 
 import java.util.ArrayList;
-import javax.media.Player;
 
 /**
  *
@@ -57,12 +56,12 @@ public class VideoMainFrame extends javax.swing.JFrame {
         videoPlayerGUI1 = new com.cs490.boom.VideoPlayerGUI();
         timelineGUI1 = new com.cs490.boom.TimelineGUI();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Boom Shakalaka");
         setMinimumSize(new java.awt.Dimension(500, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -91,9 +90,10 @@ public class VideoMainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         video.points = new ArrayList<>(timelineGUI1.criticalPoints);
-    }//GEN-LAST:event_formWindowClosed
+        this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

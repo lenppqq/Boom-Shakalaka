@@ -52,26 +52,28 @@ public class TimelineGUI extends javax.swing.JPanel {
         initComponents();
         criticalPoints = new TreeSet<>(comparator);
         criticalPoints.addAll(points);
-        updateTimeLabel();
         beginning = begin;
         ending = end;
         beginningInWindow = begin;
         endingInWindow = end;
         time = begin;
         this.player = player;
+        updateTimeLabel();
+        drawOnPanel();
     }
 
     public TimelineGUI(int begin, int end, ArrayList<Point> points) {
         initComponents();
         criticalPoints = new TreeSet<>(comparator);
         criticalPoints.addAll(points);
-        updateTimeLabel();
         beginning = begin;
         ending = end;
         beginningInWindow = begin;
         endingInWindow = end;
         time = begin;
         this.player = null;
+        updateTimeLabel();
+        drawOnPanel();
     }
 
     public void setData(int begin, int end, ArrayList<Point> points, Player player) {
@@ -83,6 +85,8 @@ public class TimelineGUI extends javax.swing.JPanel {
         endingInWindow = end;
         time = begin;
         this.player = player;
+        updateTimeLabel();
+        drawOnPanel();
     }
 
     public void setData(int begin, int end, ArrayList<Point> points) {
@@ -94,6 +98,8 @@ public class TimelineGUI extends javax.swing.JPanel {
         endingInWindow = end;
         time = begin;
         this.player = null;
+        updateTimeLabel();
+        drawOnPanel();
     }
 
     /**
@@ -250,8 +256,7 @@ public class TimelineGUI extends javax.swing.JPanel {
                     break;
                 }
             }
-        }
-        else {
+        } else {
             tagField.setText("Tag");
         }
         if (player != null) {

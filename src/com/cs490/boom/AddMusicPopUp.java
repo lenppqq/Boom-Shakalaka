@@ -50,7 +50,7 @@ public class AddMusicPopUp extends javax.swing.JFrame {
         jRadioButton5 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         browseBtn.setText("Browse");
         browseBtn.addActionListener(new java.awt.event.ActionListener() {
