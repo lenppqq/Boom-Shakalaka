@@ -6,6 +6,7 @@
 package com.cs490.boom;
 
 import javax.swing.JFrame;
+import matcher.Matcher;
 
 import musicAnalyzer.MusicAnalyzer;
 
@@ -27,7 +28,10 @@ public class MainFrame extends javax.swing.JFrame {
         database = new Database();
         analyzer = new MusicAnalyzer();
         initComponents();
-
+        for (String name : Database.getlist()) {
+            musicPanel1.myMusicList.add(name);
+        }
+        musicPanel1.musicList.updateUI();
         //matcher = new Matcher();
     }
 
@@ -42,28 +46,26 @@ public class MainFrame extends javax.swing.JFrame {
 
         musicPanel1 = new com.cs490.boom.MusicPanel();
         videoPanel1 = new com.cs490.boom.VideoPanel();
+        matchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().add(musicPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(videoPanel1, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(musicPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(videoPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(musicPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(videoPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        matchButton.setText("Match!");
+        matchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matchButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(matchButton, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void matchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchButtonActionPerformed
+        Matcher.matchAndPlay(videoPanel1.videos);
+    }//GEN-LAST:event_matchButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -101,6 +103,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton matchButton;
     private com.cs490.boom.MusicPanel musicPanel1;
     private com.cs490.boom.VideoPanel videoPanel1;
     // End of variables declaration//GEN-END:variables

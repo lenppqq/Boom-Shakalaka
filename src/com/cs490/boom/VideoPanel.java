@@ -43,16 +43,12 @@ public class VideoPanel extends javax.swing.JPanel {
         videoList = new javax.swing.JList<>();
         addVideoBtn = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
+        removeVideoButton = new javax.swing.JButton();
 
         videoList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
-        });
-        videoList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoListMouseClicked(evt);
-            }
         });
         videoList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -75,6 +71,13 @@ public class VideoPanel extends javax.swing.JPanel {
             }
         });
 
+        removeVideoButton.setText("Remove");
+        removeVideoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeVideoButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +88,8 @@ public class VideoPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addVideoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(removeVideoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -95,6 +99,8 @@ public class VideoPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addVideoBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeVideoButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(deleteButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
@@ -162,11 +168,19 @@ public class VideoPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_videoListMouseClicked
 
+    private void removeVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeVideoButtonActionPerformed
+        if (!videoList.isSelectionEmpty()) {
+            videos.remove(videoList.getSelectedIndex());
+            videoList.remove(videoList.getSelectedIndex());
+        }       
+    }//GEN-LAST:event_removeVideoButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addVideoBtn;
     private javax.swing.JButton deleteButton;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton removeVideoButton;
     public static javax.swing.JList<String> videoList;
     // End of variables declaration//GEN-END:variables
 }
