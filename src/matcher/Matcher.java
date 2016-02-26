@@ -18,7 +18,7 @@ public class Matcher {
     public final static int CONST_DIVISION_LENGTH = 100;
     
     public static void matchAndPlay(ArrayList<Video> videos){
-    	String name = "F:\\Me\\CloudMusic\\Maybe In Japan.mp3";// scanner.nextLine();
+    	String name = "/Users/Len/Dropbox/mij.mp3";// scanner.nextLine();
 		int[][] data = MusicAnalyzer.fullFFTAnalyze(MusicAnalyzer.openMusic(name));
 		int[] videoLength = new int[videos.size()];
     	

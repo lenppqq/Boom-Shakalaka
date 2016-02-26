@@ -142,7 +142,7 @@ public class AddVideoPopUp extends javax.swing.JFrame {
             filePath = f.getAbsolutePath();
             f.exists();
 
-            Player player = Manager.createPlayer(f.toURI().toURL());
+            Player player = Manager.createRealizedPlayer(f.toURI().toURL());
             fileDuration = (int) (player.getDuration().getNanoseconds() / 1000000);
         } catch (Exception ex) {
             Logger.getLogger(AddVideoPopUp.class.getName()).log(Level.SEVERE, null, ex);

@@ -128,7 +128,7 @@ public class VideoMainFrame extends javax.swing.JFrame {
             public void run() {
                 VideoMainFrame f;
                 f = new VideoMainFrame();
-                f.setData(new Video(1, "asd", "f:\\hc2.avi", 0, 0));
+                f.setData(new Video(1, "asd", "E:\\NVvideos\\Dota 2\\2.avi", 0, 0));
                 f.setVisible(true);
             }
         });

@@ -5,6 +5,7 @@
  */
 package com.cs490.boom;
 
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -141,6 +142,12 @@ public class VideoPanel extends javax.swing.JPanel {
             String value = (String) videoList.getSelectedValue();
             videoIndex = videoList.getSelectedIndex();
             System.out.println("you click a video "+value+" and index is "+videoIndex);
+            File file = new File(videos.get(videoIndex).path);
+            if (!file.exists()) {
+                videos.remove(videoList.getSelectedIndex());
+                myVideoList.remove(videoList.getSelectedValue());
+                videoList.updateUI();
+            }
         }
     }//GEN-LAST:event_videoListValueChanged
 
@@ -157,6 +164,7 @@ public class VideoPanel extends javax.swing.JPanel {
         } else {
             int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation",JOptionPane.YES_NO_OPTION);
             if (confirm == 0) {
+                videos.remove(videoList.getSelectedIndex());
                 myVideoList.remove(videoList.getSelectedValue());
                 videoList.updateUI();
             }
@@ -166,7 +174,7 @@ public class VideoPanel extends javax.swing.JPanel {
     private void videoListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoListMouseClicked
         int count = evt.getClickCount();
         System.out.println( count);
-        if (count == 2) {
+        if (count == 2 && myVideoList.size() != 0) {
             String name = videoList.getSelectedValue();
             Video video = videos.get(videoList.getSelectedIndex());
             new VideoMainFrame(video).setVisible(true);
