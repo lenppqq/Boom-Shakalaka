@@ -78,7 +78,7 @@ public class MusicPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Remove");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -188,8 +188,9 @@ public class MusicPanel extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (!musicList.isSelectionEmpty()) {
             Database.delete_name(musicList.getSelectedValue());
-            musicList.remove(musicList.getSelectedIndex());
+            myMusicList.remove(musicList.getSelectedValue());
         }     
+        musicList.updateUI();
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

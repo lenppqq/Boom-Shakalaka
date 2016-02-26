@@ -50,6 +50,11 @@ public class VideoPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        videoList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoListMouseClicked(evt);
+            }
+        });
         videoList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 videoListValueChanged(evt);
@@ -166,13 +171,15 @@ public class VideoPanel extends javax.swing.JPanel {
             Video video = videos.get(videoList.getSelectedIndex());
             new VideoMainFrame(video).setVisible(true);
         }
+        videoList.updateUI();
     }//GEN-LAST:event_videoListMouseClicked
 
     private void removeVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeVideoButtonActionPerformed
         if (!videoList.isSelectionEmpty()) {
             videos.remove(videoList.getSelectedIndex());
-            videoList.remove(videoList.getSelectedIndex());
+            myVideoList.remove(videoList.getSelectedIndex());
         }       
+        videoList.updateUI();
     }//GEN-LAST:event_removeVideoButtonActionPerformed
 
 
