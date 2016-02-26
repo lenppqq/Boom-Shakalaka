@@ -18,23 +18,25 @@ public class MusicPanel extends javax.swing.JPanel {
     private int musicIndex = -1;
     //public static String[] myMusicList;
     public static ArrayList<String> myMusicList = new ArrayList<String>();
+
     /**
      * Creates new form MusicPanel
      */
     public MusicPanel() {
         initComponents();
-
-        myMusicList.add("first");
-        myMusicList.add("helo");
-        myMusicList.add("third");
-        
         musicList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = myMusicList.toArray(new String[myMusicList.size()]);
-            public int getSize() { return myMusicList.size(); }
-            public String getElementAt(int i) { return myMusicList.get(i); }
+
+            public int getSize() {
+                return myMusicList.size();
+            }
+
+            public String getElementAt(int i) {
+                return myMusicList.get(i);
+            }
         });
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,7 +50,13 @@ public class MusicPanel extends javax.swing.JPanel {
         musicList = new javax.swing.JList<>();
         addMusicButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
+        musicList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                musicListMouseClicked(evt);
+            }
+        });
         musicList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 musicListValueChanged(evt);
@@ -70,6 +78,13 @@ public class MusicPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton2.setText("Remove");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,8 +95,9 @@ public class MusicPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addMusicButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(153, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,9 +106,11 @@ public class MusicPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addMusicButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -104,20 +122,20 @@ public class MusicPanel extends javax.swing.JPanel {
         AddMusicPopUp pop = new AddMusicPopUp();
         pop.setLocationRelativeTo(null);
         pop.setVisible(true);
-        
+
         for (int i = 0; i < myMusicList.size(); i++) {
             System.out.println(myMusicList.get(i));
         }
-        
+
         if (musicIndex < 0) {
             System.out.println("select index");
-            
+
         } else {
             //JOptionPane.showMessageDialog(jButton1, "click");
             //myMusicList[musicIndex] = "this has changed";
             musicList.updateUI();
         }
-        
+
     }//GEN-LAST:event_addMusicButtonActionPerformed
 
     private void musicListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicListValueChanged
@@ -125,9 +143,9 @@ public class MusicPanel extends javax.swing.JPanel {
         if (evt.getValueIsAdjusting()) {
             String value = (String) musicList.getSelectedValue();
             musicIndex = musicList.getSelectedIndex();
-            System.out.println("you click a music "+value+" and index is "+musicIndex);
+            System.out.println("you click a music " + value + " and index is " + musicIndex);
         }
-        
+
     }//GEN-LAST:event_musicListValueChanged
 
     private void DeleteMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteMusicButtonActionPerformed
@@ -140,26 +158,46 @@ public class MusicPanel extends javax.swing.JPanel {
 //        File f = new File(musicPath);       
         System.out.println(getName());
         if (musicName == null) {
-            JOptionPane.showMessageDialog(this, "Please Select the music!!! :D", "Warning",JOptionPane.WARNING_MESSAGE);  
-          
+            JOptionPane.showMessageDialog(this, "Please Select the music!!! :D", "Warning", JOptionPane.WARNING_MESSAGE);
+
         } else {
             String val = "Delete \"" + musicName + "\" ?";
-            int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation",JOptionPane.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation", JOptionPane.YES_NO_OPTION);
             if (confirm == 0) {
-                myMusicList.remove(musicList.getSelectedValue());
+                String name = musicList.getSelectedValue();
+                myMusicList.remove(name);
                 musicList.updateUI();
+                Database.delete_name(name);
             }
         }
-        
+
         for (int i = 0; i < myMusicList.size(); i++) {
             System.out.println(myMusicList.get(i));
         }
     }//GEN-LAST:event_DeleteMusicButtonActionPerformed
 
-  
+    private void musicListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicListMouseClicked
+        int count = evt.getClickCount();
+        if (count == 2) {
+            String name = musicList.getSelectedValue();
+            Music music = Database.getrow(name);
+            new MusicMainFrame(music).setVisible(true);
+        }
+     }//GEN-LAST:event_musicListMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (!musicList.isSelectionEmpty()) {
+            Database.delete_name(musicList.getSelectedValue());
+            myMusicList.remove(musicList.getSelectedValue());
+        }     
+        musicList.updateUI();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addMusicButton;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JList<String> musicList;
     // End of variables declaration//GEN-END:variables

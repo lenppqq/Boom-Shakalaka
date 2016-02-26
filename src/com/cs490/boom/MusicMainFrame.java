@@ -39,10 +39,10 @@ public class MusicMainFrame extends javax.swing.JFrame {
 
         timelineGUI1 = new com.cs490.boom.TimelineGUI();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -66,9 +66,12 @@ public class MusicMainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
         music.points = new ArrayList<>(timelineGUI1.criticalPoints);
-    }//GEN-LAST:event_formWindowClosed
+        Database.delete_name(music.name);
+        Database.add(music);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

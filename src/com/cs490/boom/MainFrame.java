@@ -5,7 +5,10 @@
  */
 package com.cs490.boom;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import javax.swing.JFrame;
+import matcher.Matcher;
 
 import musicAnalyzer.MusicAnalyzer;
 
@@ -18,19 +21,20 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    
     public static MusicAnalyzer analyzer;
     public static Database database;
+    public static int vID;
     //public static Matcher matcher;
-    
+
     public MainFrame() {
-        initComponents();
         database = new Database();
-
         analyzer = new MusicAnalyzer();
+        initComponents();
+        for (String name : Database.getlist()) {
+            musicPanel1.myMusicList.add(name);
+        }
+        musicPanel1.musicList.updateUI();
         //matcher = new Matcher();
-
-
     }
 
     /**
@@ -43,27 +47,34 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         musicPanel1 = new com.cs490.boom.MusicPanel();
+        videoPanel1 = new com.cs490.boom.VideoPanel();
+        matchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().add(musicPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(videoPanel1, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(musicPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(musicPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        matchButton.setText("Match!");
+        matchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matchButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(matchButton, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void matchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchButtonActionPerformed
+        ArrayList<Video> sortedVideos = new ArrayList<>(videoPanel1.videos);
+        sortedVideos.sort(new Comparator<Video>() {
+            @Override
+            public int compare(Video o1, Video o2) {
+                return o1.duration - o2.duration;
+            }
+        });
+        Matcher.matchAndPlay(sortedVideos);
+    }//GEN-LAST:event_matchButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -101,6 +112,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton matchButton;
     private com.cs490.boom.MusicPanel musicPanel1;
+    private com.cs490.boom.VideoPanel videoPanel1;
     // End of variables declaration//GEN-END:variables
 }
