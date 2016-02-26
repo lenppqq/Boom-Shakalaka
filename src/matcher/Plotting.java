@@ -67,7 +67,7 @@ public class Plotting extends ApplicationFrame
 
       
 		for(int i=0; i<data.length; i++){
-			music.add(MusicAnalyzer.realTimeCalculater(data[i][1], data[data.length-1][1], 226000), data[i][0]);
+			music.add(data[i][1], data[i][0]);
 		}
       
       

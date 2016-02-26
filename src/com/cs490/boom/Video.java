@@ -19,6 +19,7 @@ public class Video {
 	//critical points
 	public ArrayList<Point> points;
 	
+	
 	public Video(int videoId, String name, String path, int size, int duration) {
 		this.videoId = videoId;
 		this.name = name;

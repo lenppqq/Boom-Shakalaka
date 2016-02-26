@@ -6,7 +6,6 @@ public class Point {
     public int duration;
     public int tag;
     public int preference;
-
     public Point(int start, int duration, int tag, int preference) {
         this.start = start;
         this.duration = duration;
