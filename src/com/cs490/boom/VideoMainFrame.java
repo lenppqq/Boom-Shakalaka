@@ -6,6 +6,8 @@
 package com.cs490.boom;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,11 +28,7 @@ public class VideoMainFrame extends javax.swing.JFrame {
 
     public VideoMainFrame(Video video) {
         initComponents();
-        this.video = video;
-        videoPlayerGUI1.openFile(video.getPath());
-        int durationInMs = (int) (videoPlayerGUI1.player.getDuration().getNanoseconds() / 1000000);
-        timelineGUI1.setData(0, durationInMs, this.video.getPoints(), videoPlayerGUI1.player);
-        dataSet = true;
+        setData(video);
     }
 
     public void setData(Video video) {
@@ -39,8 +37,9 @@ public class VideoMainFrame extends javax.swing.JFrame {
         }
         this.video = video;
         videoPlayerGUI1.openFile(video.getPath());
-        int durationInMs = (int) (videoPlayerGUI1.player.getDuration().getNanoseconds() / 1000000);
-        timelineGUI1.setData(0, durationInMs, this.video.getPoints(), videoPlayerGUI1.player);
+        int durationInMs = video.getDuration();
+        timelineGUI1.setData(0, durationInMs, this.video.getPoints(), videoPlayerGUI1.playback);
+        dataSet = true;
     }
 
     /**
@@ -92,6 +91,7 @@ public class VideoMainFrame extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         video.points = new ArrayList<>(timelineGUI1.criticalPoints);
+        videoPlayerGUI1.playback.stopPlayback();
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
@@ -128,8 +128,9 @@ public class VideoMainFrame extends javax.swing.JFrame {
             public void run() {
                 VideoMainFrame f;
                 f = new VideoMainFrame();
-                f.setData(new Video(1, "asd", "E:\\NVvideos\\Dota 2\\2.avi", 0, 0));
                 f.setVisible(true);
+                f.setData(new Video(1, "asd", "E:\\NVvideos\\Dota 2\\3.mp4", 153923393, 82*1000));
+                
             }
         });
     }

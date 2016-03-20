@@ -5,37 +5,41 @@
  */
 package com.cs490.boom;
 
+import com.xuggle.mediatool.IMediaReader;
+import com.xuggle.mediatool.IMediaViewer;
+import com.xuggle.mediatool.MediaListenerAdapter;
+import com.xuggle.mediatool.ToolFactory;
+import com.xuggle.mediatool.event.IVideoPictureEvent;
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.media.CannotRealizeException;
 import javax.media.ControllerEvent;
-import javax.media.ControllerListener;
-import javax.media.Manager;
-import javax.media.NoPlayerException;
 import javax.media.Player;
 import javax.media.RealizeCompleteEvent;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Len
  */
-public class VideoPlayerGUI extends javax.swing.JPanel implements ActionListener, ControllerListener{
-    
+public class VideoPlayerGUI extends javax.swing.JPanel {
+
     public Player player;
+    public Playback playback;
     private File file;
+
+    Graphics g;
+
     /**
      * Creates new form VideoPlayerGUI
      */
     public VideoPlayerGUI() {
         initComponents();
     }
-    
+
     /**
      *
      * @param name file name of the a video file
@@ -43,18 +47,25 @@ public class VideoPlayerGUI extends javax.swing.JPanel implements ActionListener
     public void openFile(String name) {
         file = new File(name);
         if (file.exists()) {
-            try {
-                player = Manager.createRealizedPlayer(file.toURI().toURL());
-                player.addControllerListener(this);
-                player.start();
-                player.realize();
-            } catch (Exception ex) {
-                Logger.getLogger(VideoPlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+//            try {
+//                player = Manager.createRealizedPlayer(file.toURI().toURL());
+//                player.addControllerListener(this);
+//                player.start();
+//                player.realize();
+//            } catch (Exception ex) {
+//                Logger.getLogger(VideoPlayerGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+
+//            MediaHandler handler = new MediaHandler();
+//            handler.name = name;
+//            handler.jLabel1 = jLabel1;
+//            new Thread(handler).start();
+            playback = new Playback("", name);
+            this.add(playback);
+            new ThreadImpl(playback).start();
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,8 +75,21 @@ public class VideoPlayerGUI extends javax.swing.JPanel implements ActionListener
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        if (playback != null) {
+            playback.setSize(this.getWidth(), this.getHeight());
+            playback.resize();
+            System.out.println(this.getWidth() + " " + this.getHeight());
+        }
+    }//GEN-LAST:event_formComponentResized
 
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -74,7 +98,7 @@ public class VideoPlayerGUI extends javax.swing.JPanel implements ActionListener
     public void controllerUpdate(ControllerEvent ce) {
         if (ce instanceof RealizeCompleteEvent) {
             Component visual = player.getVisualComponent();
-            
+
             if (visual != null) {
                 this.add(visual, BorderLayout.CENTER);
             }
@@ -86,7 +110,50 @@ public class VideoPlayerGUI extends javax.swing.JPanel implements ActionListener
         }
     }
 
+    private static class ThreadImpl extends Thread {
+
+        public ThreadImpl(Playback p) {
+            this.p = p;
+        }
+        Playback p;
+
+        @Override
+        public void run() {
+            p.startPlayback();
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+}
+
+class MediaHandler implements Runnable {
+
+    public IMediaReader mediaReader;
+    public IMediaViewer mediaViewer;
+    public String name;
+    public javax.swing.JLabel jLabel1;
+
+    @Override
+    public void run() {
+
+        mediaReader = ToolFactory.makeReader(name);
+
+        mediaReader.setBufferedImageTypeToGenerate(BufferedImage.TYPE_3BYTE_BGR);
+
+        MediaListenerAdapter adapter = new MediaListenerAdapter() {
+            @Override
+            public void onVideoPicture(IVideoPictureEvent event) {
+                jLabel1.setIcon(new ImageIcon(event.getImage()));
+                //frame.setImage((BufferedImage) event.getImage());
+            }
+        };
+
+        mediaReader.addListener(adapter);
+
+        while (mediaReader.readPacket()
+                == null);
+    }
+
 }

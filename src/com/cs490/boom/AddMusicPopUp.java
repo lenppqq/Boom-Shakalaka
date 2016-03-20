@@ -7,7 +7,7 @@ package com.cs490.boom;
 
 import com.cs490.framework.GroupButtonUtils;
 import java.io.File;
-import static java.lang.Math.toIntExact;
+//import static java.lang.Math.toIntExact;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -198,7 +198,7 @@ public class AddMusicPopUp extends javax.swing.JFrame {
         File f = chooser.getSelectedFile();
         fileName = f.getName().substring(0, f.getName().lastIndexOf("."));
         filePath = f.getAbsolutePath();
-        fileLength = toIntExact(f.length());
+        fileLength = (int)(f.length());
         System.out.println("length is " + fileLength);
         filePathField.setText(filePath);
 
