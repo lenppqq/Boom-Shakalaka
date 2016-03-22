@@ -52,6 +52,8 @@ public class MusicPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(367, 350));
+
         musicList.setMaximumSize(new java.awt.Dimension(33, 80));
         musicList.setMinimumSize(new java.awt.Dimension(33, 80));
         musicList.setPreferredSize(new java.awt.Dimension(33, 80));

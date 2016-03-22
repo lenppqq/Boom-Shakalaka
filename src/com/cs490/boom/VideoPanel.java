@@ -46,6 +46,8 @@ public class VideoPanel extends javax.swing.JPanel {
         deleteButton = new javax.swing.JButton();
         removeVideoButton = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(266, 350));
+
         videoList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
