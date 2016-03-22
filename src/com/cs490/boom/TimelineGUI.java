@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.media.Player;
 import javax.media.Time;
 
@@ -29,6 +31,7 @@ public class TimelineGUI extends javax.swing.JPanel {
     private int time;
     public Set<Point> criticalPoints;
     private Player player;
+    private Playback playback;
     private static Comparator<Point> comparator = new Comparator<Point>() {
         @Override
         public int compare(Point a, Point b) {
@@ -50,30 +53,17 @@ public class TimelineGUI extends javax.swing.JPanel {
 
     public TimelineGUI(int begin, int end, ArrayList<Point> points, Player player) {
         initComponents();
-        criticalPoints = new TreeSet<>(comparator);
-        criticalPoints.addAll(points);
-        beginning = begin;
-        ending = end;
-        beginningInWindow = begin;
-        endingInWindow = end;
-        time = begin;
-        this.player = player;
-        updateTimeLabel();
-        drawOnPanel();
+        setData(begin, end, points, player);
+    }
+
+    public TimelineGUI(int begin, int end, ArrayList<Point> points, Playback playback) {
+        initComponents();
+        setData(begin, end, points, playback);
     }
 
     public TimelineGUI(int begin, int end, ArrayList<Point> points) {
         initComponents();
-        criticalPoints = new TreeSet<>(comparator);
-        criticalPoints.addAll(points);
-        beginning = begin;
-        ending = end;
-        beginningInWindow = begin;
-        endingInWindow = end;
-        time = begin;
-        this.player = null;
-        updateTimeLabel();
-        drawOnPanel();
+        setData(begin, end, points);
     }
 
     public void setData(int begin, int end, ArrayList<Point> points, Player player) {
@@ -85,6 +75,19 @@ public class TimelineGUI extends javax.swing.JPanel {
         endingInWindow = end;
         time = begin;
         this.player = player;
+        updateTimeLabel();
+        drawOnPanel();
+    }
+
+    public void setData(int begin, int end, ArrayList<Point> points, Playback playback) {
+        beginning = begin;
+        criticalPoints.clear();
+        criticalPoints.addAll(points);
+        ending = end;
+        beginningInWindow = begin;
+        endingInWindow = end;
+        time = begin;
+        this.playback = playback;
         updateTimeLabel();
         drawOnPanel();
     }
@@ -262,6 +265,11 @@ public class TimelineGUI extends javax.swing.JPanel {
         if (player != null) {
             player.setMediaTime(new Time((long) time * 1000000));
             player.stop();
+        }
+        if (playback != null) {
+            playback.pause();
+            System.out.println(playback.jumpToTime((long)time));
+            playback.unpause();
         }
         drawOnPanel();
 

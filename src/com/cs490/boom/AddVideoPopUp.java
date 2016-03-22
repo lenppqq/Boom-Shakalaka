@@ -5,9 +5,10 @@
  */
 package com.cs490.boom;
 
+import com.xuggle.xuggler.IContainer;
 import java.io.File;
 import java.io.IOException;
-import static java.lang.Math.toIntExact;
+//import static java.lang.Math.toIntxEact;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.CannotRealizeException;
@@ -142,13 +143,17 @@ public class AddVideoPopUp extends javax.swing.JFrame {
             filePath = f.getAbsolutePath();
             f.exists();
 
-            Player player = Manager.createRealizedPlayer(f.toURI().toURL());
-            fileDuration = (int) (player.getDuration().getNanoseconds() / 1000000);
+//            Player player = Manager.createRealizedPlayer(f.toURI().toURL());
+//            fileDuration = (int) (player.getDuration().getNanoseconds() / 1000000);
+            //XUGGLER
+            IContainer container = IContainer.make();
+            int result = container.open(filePath, IContainer.Type.READ, null);
+            fileDuration = (int) container.getDuration();
         } catch (Exception ex) {
             Logger.getLogger(AddVideoPopUp.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        fileLength = toIntExact(f.length());
+        fileLength = (int) (f.length());
         System.out.println("length is " + fileLength);
         filePathField.setText(filePath);
     }//GEN-LAST:event_jButton1ActionPerformed
