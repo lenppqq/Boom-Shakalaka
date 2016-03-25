@@ -49,8 +49,11 @@ public class MusicPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         musicList = new javax.swing.JList<>();
         addMusicButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        removeButton = new javax.swing.JButton();
+        musicNameLabel = new javax.swing.JLabel();
+        musicGrade = new javax.swing.JLabel();
+        editButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(367, 350));
 
@@ -70,26 +73,39 @@ public class MusicPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(musicList);
 
         addMusicButton.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
-        addMusicButton.setText("add music");
+        addMusicButton.setText("Add Music");
         addMusicButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addMusicButtonActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
-        jButton1.setText("Delete");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DeleteMusicButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
-        jButton2.setText("Remove");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        removeButton.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
+        removeButton.setText("Remove");
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                removeButtonActionPerformed(evt);
+            }
+        });
+
+        musicNameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        musicNameLabel.setText("MusicName");
+
+        musicGrade.setText("Rate: -");
+
+        editButton.setFont(new java.awt.Font("Lucida Grande", 0, 8)); // NOI18N
+        editButton.setText("Edit");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
             }
         });
 
@@ -102,22 +118,33 @@ public class MusicPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(addMusicButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(92, Short.MAX_VALUE))
+                    .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(musicNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(musicGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addMusicButton)
-                        .addGap(5, 5, 5)
-                        .addComponent(jButton2)
+                        .addComponent(musicNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(musicGrade)
+                            .addComponent(editButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(addMusicButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
@@ -151,11 +178,23 @@ public class MusicPanel extends javax.swing.JPanel {
         if (evt.getValueIsAdjusting()) {
             String value = (String) musicList.getSelectedValue();
             musicIndex = musicList.getSelectedIndex();
+            updateNameGradeLabel(value);
             System.out.println("you click a music " + value + " and index is " + musicIndex);
         }
 
     }//GEN-LAST:event_musicListValueChanged
 
+    private void updateNameGradeLabel(String name) {
+        if (name == null) {
+            musicNameLabel.setText("MusicName");
+            musicGrade.setText("Rate: -");
+        } else {
+            musicNameLabel.setText(name);
+            Music selectedMusic = Database.getrow(name);
+            musicGrade.setText("Rate: " + Integer.toString(selectedMusic.getPreference()));
+        }
+    }
+    
     private void DeleteMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteMusicButtonActionPerformed
         System.out.println("you click the delete button");
         //DeleteMusicPopUp pop = new DeleteMusicPopUp();
@@ -175,13 +214,19 @@ public class MusicPanel extends javax.swing.JPanel {
                 String name = musicList.getSelectedValue();
                 myMusicList.remove(name);
                 musicList.updateUI();
-                Database.delete_name(name);
+//                Database.delete_name(name);
             }
         }
 
         for (int i = 0; i < myMusicList.size(); i++) {
             System.out.println(myMusicList.get(i));
         }
+        
+        //update music name and grade label
+        String value = (String) musicList.getSelectedValue();
+        musicIndex = musicList.getSelectedIndex();
+        System.out.println("===value is " + value);
+        updateNameGradeLabel(value);
     }//GEN-LAST:event_DeleteMusicButtonActionPerformed
 
     private void musicListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicListMouseClicked
@@ -193,20 +238,38 @@ public class MusicPanel extends javax.swing.JPanel {
         }
      }//GEN-LAST:event_musicListMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         if (!musicList.isSelectionEmpty()) {
-            Database.delete_name(musicList.getSelectedValue());
+            Database.delete_name(musicList.getSelectedVamusicGrade
             myMusicList.remove(musicList.getSelectedValue());
         }     
+       
         musicList.updateUI();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_removeButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        // TODO add your handling code here:
+        if (musicList.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Select a music!", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            EditGradePopUp pop = new EditGradePopUp(musicList.getSelectedValue());
+//          pop.musicName = "hallo";
+            pop.setLocationRelativeTo(null);
+            pop.setVisible(true);
+        }
+        
+        
+    }//GEN-LAST:event_editButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addMusicButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editButton;
     private javax.swing.JScrollPane jScrollPane1;
+    public static javax.swing.JLabel musicGrade;
     public static javax.swing.JList<String> musicList;
+    public static javax.swing.JLabel musicNameLabel;
+    private javax.swing.JButton removeButton;
     // End of variables declaration//GEN-END:variables
 }

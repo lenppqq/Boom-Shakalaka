@@ -260,8 +260,7 @@ public class AddMusicPopUp extends javax.swing.JFrame {
         } else if (buttonGroup1.getSelection() == null) {
             alertMsg.setText("Please grade the music");
         } else {
-            MusicPanel.myMusicList.add(0, fileName);
-            MusicPanel.musicList.updateUI();
+            
             Music newMusic = new Music(fileName, filePath, fileLength);
             String grade = GroupButtonUtils.getSelectedButtonText(buttonGroup1);
             
@@ -275,6 +274,14 @@ public class AddMusicPopUp extends javax.swing.JFrame {
             newMusic.setPreference(Integer.parseInt(grade));
 //            MainFrame.analyzer.startAnalyze(newMusic);
             Database.add(newMusic);
+            
+            MusicPanel.myMusicList.add(0, fileName);
+            if (MusicPanel.musicList.isSelectionEmpty()) {
+                MusicPanel.musicList.setSelectedIndex(0);
+            }
+            MusicPanel.musicNameLabel.setText(fileName);
+            MusicPanel.musicGrade.setText("Rate: " + grade);
+            MusicPanel.musicList.updateUI();
             
             this.setVisible(false);
             
