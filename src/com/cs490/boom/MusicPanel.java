@@ -240,7 +240,7 @@ public class MusicPanel extends javax.swing.JPanel {
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         if (!musicList.isSelectionEmpty()) {
-            Database.delete_name(musicList.getSelectedVamusicGrade
+            Database.delete_name(musicList.getSelectedValue());
             myMusicList.remove(musicList.getSelectedValue());
         }     
        
