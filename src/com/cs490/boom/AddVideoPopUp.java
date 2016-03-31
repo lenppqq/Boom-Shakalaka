@@ -133,7 +133,7 @@ public class AddVideoPopUp extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("AVI file", "avi"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("MP4 file", "mp4"));
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.showOpenDialog(null);
         try {
