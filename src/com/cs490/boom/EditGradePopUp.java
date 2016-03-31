@@ -212,7 +212,7 @@ public class EditGradePopUp extends javax.swing.JFrame {
         
         int newgrade = Integer.parseInt(grade);
         //TODO: database update grade
-        
+        Database.update_preference(musicName, newgrade);
         MusicPanel.musicGrade.setText("Rate: " + grade);
         this.setVisible(false);
     }//GEN-LAST:event_saveButtonActionPerformed

@@ -112,6 +112,15 @@ public class Database {
             System.out.println("delete complete");
         }
     }
+    
+    public static void update_preference(String name, int preference) {
+        try {
+            String sql = "update boom set preference = " + preference + " where name ='" + name + "'";
+            mystat.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     // get list
     public static ArrayList<String> getlist() {
