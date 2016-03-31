@@ -211,7 +211,7 @@ public class MusicAnalyzer {
     
     public static void main(String[] args) {
        // Scanner scanner = new Scanner(System.in);
-    	 String name = "F:\\Me\\CloudMusic\\Maybe In Japan.mp3";//scanner.nextLine();
+    	 String name = "/Users/Len/Dropbox/mij.mp3";//scanner.nextLine();
         openMusic(name);
     }
 }

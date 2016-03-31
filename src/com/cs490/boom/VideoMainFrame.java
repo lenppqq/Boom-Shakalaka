@@ -38,7 +38,7 @@ public class VideoMainFrame extends javax.swing.JFrame {
         this.video = video;
         videoPlayerGUI1.openFile(video.getPath());
         int durationInMs = video.getDuration();
-        timelineGUI1.setData(0, durationInMs/1000, this.video.getPoints(), videoPlayerGUI1.playback);
+        timelineGUI1.setData(0, durationInMs, this.video.getPoints(), videoPlayerGUI1.playback);
         dataSet = true;
     }
 

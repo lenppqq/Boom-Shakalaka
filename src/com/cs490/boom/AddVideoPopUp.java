@@ -148,7 +148,7 @@ public class AddVideoPopUp extends javax.swing.JFrame {
             //XUGGLER
             IContainer container = IContainer.make();
             int result = container.open(filePath, IContainer.Type.READ, null);
-            fileDuration = (int) container.getDuration();
+            fileDuration = (int) container.getDuration()/1000;
         } catch (Exception ex) {
             Logger.getLogger(AddVideoPopUp.class.getName()).log(Level.SEVERE, null, ex);
         }
