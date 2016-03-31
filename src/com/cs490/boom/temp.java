@@ -34,6 +34,7 @@ public class temp extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        exportVideoPanel1 = new com.cs490.boom.ExportVideoPanel();
         musicPanel1 = new com.cs490.boom.MusicPanel();
         videoPanel1 = new com.cs490.boom.VideoPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -50,6 +51,8 @@ public class temp extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(650, 350));
         setSize(new java.awt.Dimension(650, 350));
         getContentPane().setLayout(null);
+        getContentPane().add(exportVideoPanel1);
+        exportVideoPanel1.setBounds(220, 90, 141, 79);
 
         musicPanel1.setOpaque(false);
         getContentPane().add(musicPanel1);
@@ -190,6 +193,7 @@ public class temp extends javax.swing.JFrame {
     private javax.swing.JMenuItem Menu_AddMusic;
     private javax.swing.JMenuItem Menu_AddVideo;
     private javax.swing.JMenuItem Menu_Exit;
+    private com.cs490.boom.ExportVideoPanel exportVideoPanel1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
