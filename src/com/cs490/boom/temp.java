@@ -59,7 +59,7 @@ public class temp extends javax.swing.JFrame {
         getContentPane().add(videoPanel1);
         videoPanel1.setBounds(324, 0, 276, 320);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/background_1.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/x.png"))); // NOI18N
         jLabel1.setToolTipText("");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 650, 350);

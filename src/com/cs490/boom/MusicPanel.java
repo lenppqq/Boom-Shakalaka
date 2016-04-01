@@ -7,6 +7,7 @@ package com.cs490.boom;
 
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,14 +49,15 @@ public class MusicPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         musicList = new javax.swing.JList<>();
-        addMusicButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
         musicNameLabel = new javax.swing.JLabel();
         musicGrade = new javax.swing.JLabel();
         editButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(367, 350));
+        setLayout(null);
 
         musicList.setMaximumSize(new java.awt.Dimension(33, 80));
         musicList.setMinimumSize(new java.awt.Dimension(33, 80));
@@ -72,21 +74,8 @@ public class MusicPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(musicList);
 
-        addMusicButton.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
-        addMusicButton.setText("Add Music");
-        addMusicButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addMusicButtonActionPerformed(evt);
-            }
-        });
-
-        deleteButton.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
-        deleteButton.setText("Delete");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteMusicButtonActionPerformed(evt);
-            }
-        });
+        add(jScrollPane1);
+        jScrollPane1.setBounds(10, 11, 160, 270);
 
         removeButton.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
         removeButton.setText("Remove");
@@ -95,11 +84,17 @@ public class MusicPanel extends javax.swing.JPanel {
                 removeButtonActionPerformed(evt);
             }
         });
+        add(removeButton);
+        removeButton.setBounds(188, 287, 102, 25);
 
         musicNameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         musicNameLabel.setText("MusicName");
+        add(musicNameLabel);
+        musicNameLabel.setBounds(188, 11, 102, 26);
 
         musicGrade.setText("Rate: -");
+        add(musicGrade);
+        musicGrade.setBounds(188, 44, 56, 14);
 
         editButton.setFont(new java.awt.Font("Lucida Grande", 0, 8)); // NOI18N
         editButton.setText("Edit");
@@ -108,70 +103,48 @@ public class MusicPanel extends javax.swing.JPanel {
                 editButtonActionPerformed(evt);
             }
         });
+        add(editButton);
+        editButton.setBounds(248, 43, 42, 19);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addMusicButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(removeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(musicNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(musicGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(70, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(musicNameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(musicGrade)
-                            .addComponent(editButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addMusicButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(removeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel1MouseReleased(evt);
+            }
+        });
+        add(jLabel1);
+        jLabel1.setBounds(188, 199, 102, 32);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal1.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel2MouseReleased(evt);
+            }
+        });
+        add(jLabel2);
+        jLabel2.setBounds(188, 242, 102, 27);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void addMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMusicButtonActionPerformed
-        // TODO add your handling code here:
-        //DefaultListModel model = new DefaultListModel();
-        System.out.println("you click a button");
-        AddMusicPopUp pop = new AddMusicPopUp();
-        pop.setLocationRelativeTo(null);
-        pop.setVisible(true);
-
-        for (int i = 0; i < myMusicList.size(); i++) {
-            System.out.println(myMusicList.get(i));
-        }
-
-        if (musicIndex < 0) {
-            System.out.println("select index");
-
-        } else {
-            //JOptionPane.showMessageDialog(jButton1, "click");
-            //myMusicList[musicIndex] = "this has changed";
-            musicList.updateUI();
-        }
-
-    }//GEN-LAST:event_addMusicButtonActionPerformed
 
     private void musicListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicListValueChanged
         // TODO add your handling code here:
@@ -195,40 +168,6 @@ public class MusicPanel extends javax.swing.JPanel {
         }
     }
     
-    private void DeleteMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteMusicButtonActionPerformed
-        System.out.println("you click the delete button");
-        //DeleteMusicPopUp pop = new DeleteMusicPopUp();
-        //pop.setLocationRelativeTo(null);
-        //pop.setVisible(true);
-        String musicName = (String) musicList.getSelectedValue();
-//        String musicPath = Database.getrow(musicName).getPath();
-//        File f = new File(musicPath);       
-        System.out.println(getName());
-        if (musicName == null) {
-            JOptionPane.showMessageDialog(this, "Please Select the music!!! :D", "Warning", JOptionPane.WARNING_MESSAGE);
-
-        } else {
-            String val = "Delete \"" + musicName + "\" ?";
-            int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation", JOptionPane.YES_NO_OPTION);
-            if (confirm == 0) {
-                String name = musicList.getSelectedValue();
-                myMusicList.remove(name);
-                musicList.updateUI();
-//                Database.delete_name(name);
-            }
-        }
-
-        for (int i = 0; i < myMusicList.size(); i++) {
-            System.out.println(myMusicList.get(i));
-        }
-        
-        //update music name and grade label
-        String value = (String) musicList.getSelectedValue();
-        musicIndex = musicList.getSelectedIndex();
-        System.out.println("===value is " + value);
-        updateNameGradeLabel(value);
-    }//GEN-LAST:event_DeleteMusicButtonActionPerformed
-
     private void musicListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicListMouseClicked
         int count = evt.getClickCount();
         if (count == 2) {
@@ -261,11 +200,112 @@ public class MusicPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_editButtonActionPerformed
 
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Hover.png"));
+        jLabel1.setIcon(II);
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Normal.png"));
+        jLabel1.setIcon(II);
+    }//GEN-LAST:event_jLabel1MouseExited
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Inactive.png"));
+        jLabel1.setIcon(II);
+    }//GEN-LAST:event_jLabel1MousePressed
+
+    private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Normal.png"));
+        jLabel1.setIcon(II);
+        System.out.println("you click a button");
+        AddMusicPopUp pop = new AddMusicPopUp();
+        pop.setLocationRelativeTo(null);
+        pop.setVisible(true);
+
+        for (int i = 0; i < myMusicList.size(); i++) {
+            System.out.println(myMusicList.get(i));
+        }
+
+        if (musicIndex < 0) {
+            System.out.println("select index");
+
+        } else {
+            //JOptionPane.showMessageDialog(jButton1, "click");
+            //myMusicList[musicIndex] = "this has changed";
+            musicList.updateUI();
+        }
+    }//GEN-LAST:event_jLabel1MouseReleased
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Hover1.png"));
+        jLabel2.setIcon(II);
+    }//GEN-LAST:event_jLabel2MouseEntered
+
+    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Normal1.png"));
+        jLabel2.setIcon(II);
+    }//GEN-LAST:event_jLabel2MouseExited
+
+    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Inactive1.png"));
+        jLabel2.setIcon(II);
+    }//GEN-LAST:event_jLabel2MousePressed
+
+    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Normal1.png"));
+        jLabel2.setIcon(II);
+        System.out.println("you click the delete button");
+        //DeleteMusicPopUp pop = new DeleteMusicPopUp();
+        //pop.setLocationRelativeTo(null);
+        //pop.setVisible(true);
+        String musicName = (String) musicList.getSelectedValue();
+//        String musicPath = Database.getrow(musicName).getPath();
+//        File f = new File(musicPath);       
+        System.out.println(getName());
+        if (musicName == null) {
+            JOptionPane.showMessageDialog(this, "Please Select the music!!! :D", "Warning", JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            String val = "Delete \"" + musicName + "\" ?";
+            int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (confirm == 0) {
+                String name = musicList.getSelectedValue();
+                myMusicList.remove(name);
+                musicList.updateUI();
+//                Database.delete_name(name);
+            }
+        }
+
+        for (int i = 0; i < myMusicList.size(); i++) {
+            System.out.println(myMusicList.get(i));
+        }
+        
+        //update music name and grade label
+        String value = (String) musicList.getSelectedValue();
+        musicIndex = musicList.getSelectedIndex();
+        System.out.println("===value is " + value);
+        updateNameGradeLabel(value);
+    }//GEN-LAST:event_jLabel2MouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addMusicButton;
-    private javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel musicGrade;
     public static javax.swing.JList<String> musicList;
