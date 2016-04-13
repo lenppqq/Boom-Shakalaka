@@ -23,14 +23,17 @@ public class EditingStructure {
 		  Mduration=mdur;
 		  effect=eff;
 		  effectArgument=effectArg;
+		  if(effectArgument == 1 && effect == 1){
+			  effect = 0;
+		  }
 	}
 	
 	public String toString(){
-		return "videoID: "+VideoID+"    video start position: "+ VstartPosition+
-				"    video duration: " + Vduration+ "    musicID: "+ MusicID+
-				"    music start position: " + MstartPosition+
-				"    Mduration: "+ Mduration+
-				"    music end position: " + (MstartPosition+Mduration)+
-				"    effect: " + effect + "    effectArgument: " + effectArgument;
+		return "videoID: "+VideoID+" \tvideo start position: "+ VstartPosition+
+				"\tvideo duration: " + Vduration+ "    musicID: "+ MusicID+
+				"\tmusic start position: " + MstartPosition+
+				"\tMduration: "+ Mduration+
+				"\tmusic end position: " + (MstartPosition+Mduration)+
+				"\teffect: " + effect + "\teffectArgument: " + effectArgument;
 	}
 }

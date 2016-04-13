@@ -3,6 +3,7 @@ package com.cs490.boom;
 public class Point {
 
     public int start;
+    public int end;
     public int duration;
     public int tag;
     public int preference;
@@ -11,6 +12,7 @@ public class Point {
         this.duration = duration;
         this.tag = tag;
         this.preference = preference;
+        this.end = start+duration;
     }
 
     public void setStart(int start) {

@@ -52,19 +52,22 @@ public class Plotting extends ApplicationFrame
    
    private XYDataset createDataset( )
    {
-		String name = "F:\\Me\\CloudMusic\\Maybe In Japan.mp3";// scanner.nextLine();
+		String name = "F:\\Me\\CloudMusic\\Aero Chord - Boundless.mp3";// scanner.nextLine();
 		final XYSeries music = new XYSeries(name);
-		int[][] data = MusicAnalyzer.fullFFTAnalyze(MusicAnalyzer.openMusic(name));
+		int[][] data = MusicAnalyzer.bassExtraction(MusicAnalyzer.openMusic(name));
+		//int[][] data = MusicAnalyzer.fullFFTAnalyze(MusicAnalyzer.openMusic(name));
 		
 		System.out.println("average1: "+ MusicAnalyzer.averageValue(data));
 		
-		data = MusicAnalyzer.graph_TakeAverage(data, 7);
+		//data = MusicAnalyzer.graph_TakeAverage(data, 6);
 		System.out.println("average2: "+ MusicAnalyzer.averageValue(data));
 		System.out.println("dataSize: "+ data.length);
-//		data = MusicAnalyzer.graph_TakeMax(data, 5);
-
+		data = MusicAnalyzer.graph_Polarise(data);
+		//data = MusicAnalyzer.graph_TakeDifference(data, 1);
+		//data = MusicAnalyzer.graph_TakeMax(data, 4);
+		data = MusicAnalyzer.graph_Polarise(data);
 		System.out.println("average3: "+ MusicAnalyzer.averageValue(data));
-
+	
       
 		for(int i=0; i<data.length; i++){
 			music.add(data[i][1], data[i][0]);
