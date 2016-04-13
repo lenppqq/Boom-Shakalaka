@@ -5,9 +5,10 @@
  */
 package com.cs490.boom;
 
+import com.xuggle.xuggler.IContainer;
 import java.io.File;
 import java.io.IOException;
-import static java.lang.Math.toIntExact;
+//import static java.lang.Math.toIntxEact;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.CannotRealizeException;
@@ -132,7 +133,7 @@ public class AddVideoPopUp extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("AVI file", "avi"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("MP4 file", "mp4"));
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.showOpenDialog(null);
         try {
@@ -142,13 +143,17 @@ public class AddVideoPopUp extends javax.swing.JFrame {
             filePath = f.getAbsolutePath();
             f.exists();
 
-            Player player = Manager.createPlayer(f.toURI().toURL());
-            fileDuration = (int) (player.getDuration().getNanoseconds() / 1000000);
+//            Player player = Manager.createRealizedPlayer(f.toURI().toURL());
+//            fileDuration = (int) (player.getDuration().getNanoseconds() / 1000000);
+            //XUGGLER
+            IContainer container = IContainer.make();
+            int result = container.open(filePath, IContainer.Type.READ, null);
+            fileDuration = (int) container.getDuration()/1000;
         } catch (Exception ex) {
             Logger.getLogger(AddVideoPopUp.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        fileLength = toIntExact(f.length());
+        fileLength = (int) (f.length());
         System.out.println("length is " + fileLength);
         filePathField.setText(filePath);
     }//GEN-LAST:event_jButton1ActionPerformed

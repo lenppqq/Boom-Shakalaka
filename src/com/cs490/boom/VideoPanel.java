@@ -5,7 +5,9 @@
  */
 package com.cs490.boom;
 
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,9 +43,13 @@ public class VideoPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         videoList = new javax.swing.JList<>();
-        addVideoBtn = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
-        removeVideoButton = new javax.swing.JButton();
+        videoNameLabel = new javax.swing.JLabel();
+        vedioLength = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+
+        setPreferredSize(new java.awt.Dimension(266, 350));
+        setLayout(null);
 
         videoList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -62,59 +68,105 @@ public class VideoPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(videoList);
 
-        addVideoBtn.setText("Add Video");
-        addVideoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addVideoBtnActionPerformed(evt);
+        add(jScrollPane1);
+        jScrollPane1.setBounds(10, 11, 151, 270);
+
+        videoNameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        videoNameLabel.setText("videoName");
+        videoNameLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        add(videoNameLabel);
+        videoNameLabel.setBounds(173, 11, 141, 28);
+
+        vedioLength.setText("length");
+        add(vedioLength);
+        vedioLength.setBounds(173, 45, 141, 16);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal2.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel1MouseReleased(evt);
             }
         });
+        add(jLabel1);
+        jLabel1.setBounds(173, 198, 99, 32);
 
-        deleteButton.setText("Delete");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal1.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel2MouseReleased(evt);
             }
         });
-
-        removeVideoButton.setText("Remove");
-        removeVideoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeVideoButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addVideoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(removeVideoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(129, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(addVideoBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(removeVideoButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        add(jLabel2);
+        jLabel2.setBounds(173, 242, 99, 27);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addVideoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVideoBtnActionPerformed
+    private void videoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_videoListValueChanged
         // TODO add your handling code here:
+        if (evt.getValueIsAdjusting()) {
+            String value = (String) videoList.getSelectedValue();
+            videoIndex = videoList.getSelectedIndex();
+            videoNameLabel.setText(value);
+            System.out.println("you click a video "+value+" and index is "+videoIndex);
+            File file = new File(videos.get(videoIndex).path);
+            if (!file.exists()) {
+                videos.remove(videoList.getSelectedIndex());
+                myVideoList.remove(videoList.getSelectedValue());
+                videoList.updateUI();
+            }
+        }
+    }//GEN-LAST:event_videoListValueChanged
+
+    private void videoListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoListMouseClicked
+        int count = evt.getClickCount();
+        System.out.println( count);
+        if (count == 2 && myVideoList.size() != 0) {
+            String name = videoList.getSelectedValue();
+            Video video = videos.get(videoList.getSelectedIndex());
+            new VideoMainFrame(video).setVisible(true);
+        }
+        videoList.updateUI();
+    }//GEN-LAST:event_videoListMouseClicked
+
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Hover2.png"));
+        jLabel1.setIcon(II);
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Normal2.png"));
+        jLabel1.setIcon(II);
+    }//GEN-LAST:event_jLabel1MouseExited
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Inactive2.png"));
+        jLabel1.setIcon(II);
+    }//GEN-LAST:event_jLabel1MousePressed
+
+    private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Normal2.png"));
+        jLabel1.setIcon(II);
         System.out.println("you click a button");
         AddVideoPopUp pop = new AddVideoPopUp();
         pop.setLocationRelativeTo(null);
@@ -133,19 +185,30 @@ public class VideoPanel extends javax.swing.JPanel {
             //myMusicList[musicIndex] = "this has changed";
             videoList.updateUI();
         }
-    }//GEN-LAST:event_addVideoBtnActionPerformed
+    }//GEN-LAST:event_jLabel1MouseReleased
 
-    private void videoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_videoListValueChanged
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
         // TODO add your handling code here:
-        if (evt.getValueIsAdjusting()) {
-            String value = (String) videoList.getSelectedValue();
-            videoIndex = videoList.getSelectedIndex();
-            System.out.println("you click a video "+value+" and index is "+videoIndex);
-        }
-    }//GEN-LAST:event_videoListValueChanged
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Hover1.png"));
+        jLabel2.setIcon(II);
+    }//GEN-LAST:event_jLabel2MouseEntered
 
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
         // TODO add your handling code here:
+         ImageIcon II = new ImageIcon(getClass().getResource("/Images/Normal1.png"));
+        jLabel2.setIcon(II);
+    }//GEN-LAST:event_jLabel2MouseExited
+
+    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Inactive1.png"));
+        jLabel2.setIcon(II);
+    }//GEN-LAST:event_jLabel2MousePressed
+
+    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Normal1.png"));
+        jLabel2.setIcon(II);
         System.out.println("you click the delete button");
         //DeleteMusicPopUp pop = new DeleteMusicPopUp();
         //pop.setLocationRelativeTo(null);
@@ -157,37 +220,20 @@ public class VideoPanel extends javax.swing.JPanel {
         } else {
             int confirm = JOptionPane.showConfirmDialog(null, val, "Confirmation",JOptionPane.YES_NO_OPTION);
             if (confirm == 0) {
+                videos.remove(videoList.getSelectedIndex());
                 myVideoList.remove(videoList.getSelectedValue());
                 videoList.updateUI();
             }
         }
-    }//GEN-LAST:event_deleteButtonActionPerformed
-
-    private void videoListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoListMouseClicked
-        int count = evt.getClickCount();
-        System.out.println( count);
-        if (count == 2) {
-            String name = videoList.getSelectedValue();
-            Video video = videos.get(videoList.getSelectedIndex());
-            new VideoMainFrame(video).setVisible(true);
-        }
-        videoList.updateUI();
-    }//GEN-LAST:event_videoListMouseClicked
-
-    private void removeVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeVideoButtonActionPerformed
-        if (!videoList.isSelectionEmpty()) {
-            videos.remove(videoList.getSelectedIndex());
-            myVideoList.remove(videoList.getSelectedIndex());
-        }       
-        videoList.updateUI();
-    }//GEN-LAST:event_removeVideoButtonActionPerformed
+    }//GEN-LAST:event_jLabel2MouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addVideoBtn;
-    private javax.swing.JButton deleteButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton removeVideoButton;
+    private javax.swing.JLabel vedioLength;
     public static javax.swing.JList<String> videoList;
+    private javax.swing.JLabel videoNameLabel;
     // End of variables declaration//GEN-END:variables
 }

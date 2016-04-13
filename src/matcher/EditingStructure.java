@@ -1,3 +1,4 @@
+
 package matcher;
 
 public class EditingStructure {
@@ -37,3 +38,4 @@ public class EditingStructure {
 				"\teffect: " + effect + "\teffectArgument: " + effectArgument;
 	}
 }
+

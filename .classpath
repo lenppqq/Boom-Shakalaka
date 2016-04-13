@@ -33,5 +33,6 @@
 	<classpathentry kind="lib" path="lib/slf4j-api-1.6.4.jar"/>
 	<classpathentry kind="lib" path="lib/xuggle-utils-1.22.jar"/>
 	<classpathentry kind="lib" path="lib/xuggle-xuggler-5.4.jar"/>
+	<classpathentry kind="lib" path="lib/jaudiotagger-2.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
