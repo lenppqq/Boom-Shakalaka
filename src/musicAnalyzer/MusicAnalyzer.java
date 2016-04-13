@@ -72,6 +72,7 @@ public class MusicAnalyzer {
             
         } catch (Exception ex) {
             Logger.getLogger(MusicAnalyzer.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         
 
@@ -100,7 +101,8 @@ public class MusicAnalyzer {
                
             }
         } catch (Exception ex) {
-            Logger.getLogger(MusicAnalyzer.class.getName()).log(Level.SEVERE, null, ex);
+        	Logger.getLogger(MusicAnalyzer.class.getName()).log(Level.SEVERE, null, ex);
+        	return null;
         }
         
 

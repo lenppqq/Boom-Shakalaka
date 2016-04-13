@@ -6,8 +6,9 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.ui.RefineryUtilities;
 
 import com.cs490.boom.Point;
+import com.cs490.boom.Music;
 import com.cs490.boom.Video;
-
+import com.cs490.boom.Database;
 import musicAnalyzer.MusicAnalyzer;
 /**
 *
@@ -171,71 +172,101 @@ public class Matcher {
 
 
 	public static void matchAndPlay(ArrayList<Video> Videos) {
-		String name = "F:\\Me\\CloudMusic\\OMFG - Hello.mp3";// scanner.nextLine();
-		ArrayList<float[]> fft = MusicAnalyzer.openMusic(name);
-		int[][] data = MusicAnalyzer.fullFFTAnalyze(fft);
-
-		ArrayList<Integer> videoN = new ArrayList<Integer>();
-		for(int i=0; i<Videos.size(); i++){
-			if(Videos.get(i).preference == MAINPRIO){
-				videoN.add(Videos.get(i).duration);
+		ArrayList<String> allMusics = Database.getlist();
+		int bestEditScore = Integer.MIN_VALUE;
+		ArrayList<EditingStructure> bestEdit = null;
+		for(int k=0; k<allMusics.size(); k++){
+			Music currentMusic = Database.getrow(allMusics.get(k));
+			String name = currentMusic.getPath();
+					//String name = "F:\\Me\\CloudMusic\\OMFG - Hello.mp3";// scanner.nextLine();
+			ArrayList<float[]> fft = MusicAnalyzer.openMusic(name);
+			if(fft==null)
+				continue;
+			int[][] data = MusicAnalyzer.fullFFTAnalyze(fft);
+	
+			ArrayList<Integer> videoN = new ArrayList<Integer>();
+			for(int i=0; i<Videos.size(); i++){
+				if(Videos.get(i).preference == MAINPRIO){
+					videoN.add(Videos.get(i).duration);
+				}
 			}
-		}
-		
-		int[] videoLength = new int[videoN.size()];
-		for(int i=0; i<videoN.size(); i++){
-			videoLength[i] = videoN.get(i);
-		}
-
-		videos = Videos;
-
-		
-		ArrayList<int[]> divisionResult = Matcher.graph_Division(data, videoLength);
-
-
-
-		//int[] order = divisionResult.get(divisionResult.size() - 1);
-
-		for (int i = 0; i < divisionResult.size() ; i++) {
-			algorithmSetup(i);
-
 			
-			EditingStructure edit_prefix = new EditingStructure
-					(mainV.videoId, 
-					 mainP.get(0).start - (divisionResult.get(i)[2] - divisionResult.get(i)[0]), 
-					 divisionResult.get(i)[2] - divisionResult.get(i)[0], 
-					 musicID, 
-					 divisionResult.get(i)[0],
-					 divisionResult.get(i)[2] - divisionResult.get(i)[0],
-					 SPEEDCHANGEEFFECTID, 
-					 1);
-			EditingStructure edit_surfix = new EditingStructure
-					(mainV.videoId, 
-					 mainIntervalP.end , 
-					 divisionResult.get(i)[1] - divisionResult.get(i)[3], 
-					 musicID, 
-					 divisionResult.get(i)[3],
-					 divisionResult.get(i)[1] - divisionResult.get(i)[3],
-					 SPEEDCHANGEEFFECTID, 
-					 1);
+			int[] videoLength = new int[videoN.size()];
+			for(int i=0; i<videoN.size(); i++){
+				videoLength[i] = videoN.get(i);
+			}
+	
+			videos = Videos;
+	
 			
+			ArrayList<int[]> divisionResult = Matcher.graph_Division(data, videoLength);
+	
+			if(divisionResult==null)
+				continue;
+	
+			//int[] order = divisionResult.get(divisionResult.size() - 1);
+			boolean flag = true;
 			
+			ArrayList<EditingStructure> editTotal = new ArrayList<EditingStructure>();
 			
-			ArrayList<EditingStructure> edit = Matcher.clipMatching(fft, i,
-					divisionResult.get(i)[2], divisionResult.get(i)[3]);
-			
-			
-			if( edit==null){
-				System.out.println("NOT POSSIBLE");
-			}else{
-				edit.add(0, edit_prefix);
-				edit.add(edit_surfix);
+			for (int i = 0; i < divisionResult.size() ; i++) {
+				algorithmSetup(i);
+	
 				
-				for (int j = 0; j < edit.size(); j++)
-					System.out.println(edit.get(j).toString());
+				EditingStructure edit_prefix = new EditingStructure
+						(mainV.videoId, 
+						 mainP.get(0).start - (divisionResult.get(i)[2] - divisionResult.get(i)[0]), 
+						 divisionResult.get(i)[2] - divisionResult.get(i)[0], 
+						 musicID, 
+						 divisionResult.get(i)[0],
+						 divisionResult.get(i)[2] - divisionResult.get(i)[0],
+						 SPEEDCHANGEEFFECTID, 
+						 1);
+				EditingStructure edit_surfix = new EditingStructure
+						(mainV.videoId, 
+						 mainIntervalP.end , 
+						 divisionResult.get(i)[1] - divisionResult.get(i)[3], 
+						 musicID, 
+						 divisionResult.get(i)[3],
+						 divisionResult.get(i)[1] - divisionResult.get(i)[3],
+						 SPEEDCHANGEEFFECTID, 
+						 1);
+				
+				
+				
+				ArrayList<EditingStructure> edit = Matcher.clipMatching(fft, i,
+						divisionResult.get(i)[2], divisionResult.get(i)[3]);
+				
+				
+				if( edit==null){
+					flag = false;
+					break;
+				}else{
+					edit.add(0, edit_prefix);
+					edit.add(edit_surfix);
+					
+					editTotal.addAll(edit);
+				}
+			}
+			if(flag == false){
+				continue;
+			}
+
+
+			
+			
+			if(EffectScore(editTotal) * currentMusic.preference > bestEditScore){
+				bestEditScore = EffectScore(editTotal)* currentMusic.preference;
+				bestEdit = editTotal;
 			}
 			
 		}
+		
+		for (int j = 0; j < bestEdit.size(); j++)
+			System.out.println(bestEdit.get(j).toString());
+		
+		//////////////////////// convert bestEdit to actual video editing
+		
     }
     
     public static ArrayList<int[]> subgraph_Division2(int[][] data, int divisionLength) {
@@ -953,9 +984,12 @@ public class Matcher {
     public final static int OFFPOINTPROI = 5;*/
     
     public static void main(String args[]){
-    	
-   	String name = "F:\\Me\\CloudMusic\\OMFG - Hello.mp3";// scanner.nextLine();
-		int[][] data = MusicAnalyzer.fullFFTAnalyze(MusicAnalyzer.openMusic(name));
+    	//new Database();
+	   	//String name = "F:\\Me\\CloudMusic\\OMFG - Hello.mp3";// scanner.nextLine();
+	   	//Music testing = new Music("Hello", name, 30);
+	   	//testing.setPreference(10);
+	   	//Database.add(testing);
+		/*int[][] data = MusicAnalyzer.fullFFTAnalyze(MusicAnalyzer.openMusic(name));
 		int[] videoLength = new int[]{180000,180000};
     	ArrayList<int[]> divisionResult = Matcher.graph_Division(data, videoLength);
     	
@@ -964,7 +998,7 @@ public class Matcher {
     		for(int j=0; j<temp.length; j++)
     			System.out.print(temp[j]+ " ");
     		System.out.println("");
-    	}
+    	}*/
     
 
      	Video v1 = new Video(1,"test1", "/test1", 30, 180000);
