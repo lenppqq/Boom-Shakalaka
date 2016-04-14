@@ -179,6 +179,7 @@ public class Matcher {
 			Music currentMusic = Database.getrow(allMusics.get(k));
 			String name = currentMusic.getPath();
 					//String name = "F:\\Me\\CloudMusic\\OMFG - Hello.mp3";// scanner.nextLine();
+			musicID = currentMusic;
 			ArrayList<float[]> fft = MusicAnalyzer.openMusic(name);
 			if(fft==null)
 				continue;
@@ -214,7 +215,7 @@ public class Matcher {
 	
 				
 				EditingStructure edit_prefix = new EditingStructure
-						(mainV.videoId, 
+						(mainV, 
 						 mainP.get(0).start - (divisionResult.get(i)[2] - divisionResult.get(i)[0]), 
 						 divisionResult.get(i)[2] - divisionResult.get(i)[0], 
 						 musicID, 
@@ -223,7 +224,7 @@ public class Matcher {
 						 SPEEDCHANGEEFFECTID, 
 						 1);
 				EditingStructure edit_surfix = new EditingStructure
-						(mainV.videoId, 
+						(mainV, 
 						 mainIntervalP.end , 
 						 divisionResult.get(i)[1] - divisionResult.get(i)[3], 
 						 musicID, 
@@ -545,17 +546,17 @@ public class Matcher {
     }
     
 
-    private static int musicID = 0;
+    private static Music musicID = null;
     
     
     public static final int SPEEDCHANGEEFFECTID = 1;
     
-    private static ArrayList<EditingStructure> detailCriticalEditing(int vstart, int vdur,int mstart,int mdur, int offClimaxVID){
+    private static ArrayList<EditingStructure> detailCriticalEditing(int vstart, int vdur,int mstart,int mdur, Video offClimaxVID){
     	ArrayList<EditingStructure> totalResult = new ArrayList<EditingStructure>();
     	if(((double)mdur/vdur)<=2 || mdur<2000){
 		//if(1==1){
 			EditingStructure ResultI1 = new EditingStructure
-					(mainClimaxV.videoId, 
+					(mainClimaxV, 
 			 		 vstart, 
 					 vdur, 
 					 musicID, 
@@ -565,9 +566,9 @@ public class Matcher {
 					 (double)mdur/vdur);
 			totalResult.add(ResultI1);
     	}else{
-    		if(offClimaxVID==-1){
+    		if(offClimaxVID==null){
     			EditingStructure ResultI1 = new EditingStructure
-    					(mainClimaxV.videoId, 
+    					(mainClimaxV, 
     			 		 vstart, 
     					 vdur, 
     					 musicID, 
@@ -578,7 +579,7 @@ public class Matcher {
     			totalResult.add(ResultI1);
     			
     			EditingStructure ResultI2 = new EditingStructure
-    					(mainClimaxV.videoId, 
+    					(mainClimaxV, 
     			 		 vstart+vdur-(mdur-2*vdur), 
     					 (mdur-2*vdur), 
     					 musicID, 
@@ -589,7 +590,7 @@ public class Matcher {
     			totalResult.add(ResultI2);
     		}else{
     			EditingStructure ResultI1 = new EditingStructure
-    					(mainClimaxV.videoId, 
+    					(mainClimaxV, 
     			 		 vstart, 
     					 vdur, 
     					 musicID, 
@@ -600,7 +601,7 @@ public class Matcher {
     			totalResult.add(ResultI1);
     			
     			EditingStructure ResultI2 = new EditingStructure
-    					(mainV.videoId, 
+    					(mainV, 
     			 		 vstart+vdur-(mdur-(int)(1.5*vdur))/2, 
     					 (mdur-(int)(1.5*vdur))/2, 
     					 musicID, 
@@ -629,7 +630,7 @@ public class Matcher {
     	ArrayList<EditingStructure> totalResult = new ArrayList<EditingStructure>();
     	if(vdur>mdur){
 			EditingStructure ResultI1 = new EditingStructure
-					(mainV.videoId, 
+					(mainV, 
 					vstart, 
 					vdur, 
 					 musicID, 
@@ -640,7 +641,7 @@ public class Matcher {
 			totalResult.add(ResultI1);
     	}else{
     		EditingStructure ResultI1 = new EditingStructure
-    				(mainV.videoId, 
+    				(mainV, 
     				 vstart+vdur-mdur, 
     				 mdur, 
     				 musicID, 
@@ -653,10 +654,10 @@ public class Matcher {
 		return totalResult;
     }
     
-    private static int findOffClimax(int tagID){
+    private static Video findOffClimax(int tagID){
     	if(offClimaxV!=null)
-    		return offClimaxV.videoId;
-    	return -1;
+    		return offClimaxV;
+    	return null;
     }
     
     private static ArrayList<EditingStructure> detailEditing(ArrayList<Point> editingP, ArrayList<float[]> fft,  int climaxStart, int climaxEnd){
@@ -768,7 +769,7 @@ public class Matcher {
 				newDuration =  criticalFinal[i+1][0] - criticalFinal[i][2];
 				
 				
-				int offVideoClimax = findOffClimax(editingP.get(i).tag);
+				Video offVideoClimax = findOffClimax(editingP.get(i).tag);
 				
 				ArrayList<EditingStructure> ResultI1 = detailCriticalEditing(
 						 criticalFinal[i][3], 
@@ -827,7 +828,7 @@ public class Matcher {
 	        			mainV.points.remove(i);
 	        		}
 	    		}
-    			ArrayList<EditingStructure> curEdit1 = basicClipMatching(mainV.videoId, mainV.points.get(0).start , D , mainV.points , climaxStart, climaxEnd);
+    			ArrayList<EditingStructure> curEdit1 = basicClipMatching(mainV, mainV.points.get(0).start , D , mainV.points , climaxStart, climaxEnd);
     			mainV.points.add(mainIntervalP);
     			if(curEdit1!=null){
     				tempScore = -50000;
@@ -883,7 +884,7 @@ public class Matcher {
         			ArrayList<EditingStructure> curEdit = Type(1, fft, groupID, climaxStart, climaxEnd-L-i*division);
         			if(curEdit != null){
         				EditingStructure ResultI1 = new EditingStructure
-    							(mainV.videoId, 
+    							(mainV, 
     							 mainIntervalP.start-i*division, 
     							 mainIntervalP.duration + i*division, 
     							 musicID, 
@@ -905,7 +906,7 @@ public class Matcher {
     }
     private static final int DIVISIONCONSTANT = 16;
 
-    public static ArrayList<EditingStructure> basicClipMatching(int videoID, int videoStart,int videoDuration, ArrayList<Point> points, int startTime, int endTime){
+    public static ArrayList<EditingStructure> basicClipMatching(Video videoID, int videoStart,int videoDuration, ArrayList<Point> points, int startTime, int endTime){
     	int currentDuration = endTime-startTime;
     	int nonCritDuration = videoDuration;
     	double multiplierFactor = 0;
@@ -931,7 +932,7 @@ public class Matcher {
         			  videoID,
       				  currentPosition,
       				  point.start-currentPosition,
-      				  1,
+      				  musicID,
       				  currentMusic,
       				  (int)((point.start-currentPosition)*multiplierFactor),
       				  EditingStructure.FASTANDSTATION,
@@ -951,7 +952,7 @@ public class Matcher {
         				videoID,
       				  currentPosition,
       				  point.duration,
-      				  1,
+      				musicID,
       				  currentMusic,
       				  (int)((point.duration)*tagMultiplier),
       				  EditingStructure.SLOW,
@@ -965,7 +966,7 @@ public class Matcher {
     				videoID,
     				  currentPosition,
     				  videoStart+videoDuration-currentPosition,
-    				  1,
+    				  musicID,
     				  currentMusic,
     				  (int)((videoStart+videoDuration-currentPosition)*multiplierFactor),
     				  EditingStructure.FASTANDSTATION,

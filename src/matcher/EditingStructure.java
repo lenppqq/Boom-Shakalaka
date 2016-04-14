@@ -1,11 +1,13 @@
-
 package matcher;
 
+import com.cs490.boom.Music;
+import com.cs490.boom.Video;
+
 public class EditingStructure {
-	public int VideoID;
+	public Video VideoID;
 	public int VstartPosition;
 	public int Vduration;
-	public int MusicID;
+	public Music MusicID;
 	public int MstartPosition;
 	public int Mduration;
 	public int effect;
@@ -15,7 +17,7 @@ public class EditingStructure {
 	public static final int SLOW = 2;
 	
 	public EditingStructure(){}
-	public EditingStructure(int videoID, int vstart, int vdur,int mid, int mstart,int mdur, int eff, double effectArg){
+	public EditingStructure(Video videoID, int vstart, int vdur,Music mid, int mstart,int mdur, int eff, double effectArg){
 		  VideoID=videoID;
 		  VstartPosition=vstart;
 		  Vduration=vdur;
@@ -30,8 +32,8 @@ public class EditingStructure {
 	}
 	
 	public String toString(){
-		return "videoID: "+VideoID+" \tvideo start position: "+ VstartPosition+
-				"\tvideo duration: " + Vduration+ "    musicID: "+ MusicID+
+		return "videoID: "+VideoID.videoId+" \tvideo start position: "+ VstartPosition+
+				"\tvideo duration: " + Vduration+ "    musicID: "+ MusicID.path+
 				"\tmusic start position: " + MstartPosition+
 				"\tMduration: "+ Mduration+
 				"\tmusic end position: " + (MstartPosition+Mduration)+
