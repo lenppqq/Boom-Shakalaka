@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -35,38 +36,58 @@ public class ExportVideoPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        exportButton = new javax.swing.JButton();
         dirLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        exportButton.setText("Saved Path");
-        exportButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exportButtonActionPerformed(evt);
+        setLayout(null);
+
+        dirLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dirLabel.setForeground(new java.awt.Color(102, 102, 102));
+        dirLabel.setText("The modified viedo will be saved to this directory...");
+        add(dirLabel);
+        dirLabel.setBounds(170, 10, 310, 30);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sNormal.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel1MouseReleased(evt);
             }
         });
-
-        dirLabel.setForeground(new java.awt.Color(102, 102, 102));
-        dirLabel.setText("directory");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(exportButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dirLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(exportButton)
-                .addComponent(dirLabel))
-        );
+        add(jLabel1);
+        jLabel1.setBounds(30, 0, 120, 50);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/sHover.png"));
+        jLabel1.setIcon(II);
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/sNormal.png"));
+        jLabel1.setIcon(II);
+    }//GEN-LAST:event_jLabel1MouseExited
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/sActive.png"));
+        jLabel1.setIcon(II);
+    }//GEN-LAST:event_jLabel1MousePressed
+
+    private void jLabel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseReleased
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/sNormal.png"));
+        jLabel1.setIcon(II);
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new FileNameExtensionFilter("AVI file", "avi"));
         
@@ -86,12 +107,11 @@ public class ExportVideoPanel extends javax.swing.JPanel {
         } else {
             
         }
-        
-    }//GEN-LAST:event_exportButtonActionPerformed
+    }//GEN-LAST:event_jLabel1MouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dirLabel;
-    private javax.swing.JButton exportButton;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

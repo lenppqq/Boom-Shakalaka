@@ -51,8 +51,10 @@ public class AddVideoPopUp extends javax.swing.JFrame {
         addVideoBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
         alertMsg = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         filePathField.setEnabled(false);
         filePathField.addActionListener(new java.awt.event.ActionListener() {
@@ -60,6 +62,7 @@ public class AddVideoPopUp extends javax.swing.JFrame {
                 filePathFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(filePathField, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 34, 414, -1));
 
         jButton1.setText("Browse");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -67,6 +70,7 @@ public class AddVideoPopUp extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 33, -1, -1));
 
         addVideoBtn.setText("Add Video");
         addVideoBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +78,7 @@ public class AddVideoPopUp extends javax.swing.JFrame {
                 addVideoBtnActionPerformed(evt);
             }
         });
+        getContentPane().add(addVideoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(149, 143, -1, -1));
 
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -81,47 +86,14 @@ public class AddVideoPopUp extends javax.swing.JFrame {
                 cancelBtnActionPerformed(evt);
             }
         });
+        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 143, -1, -1));
 
         alertMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         alertMsg.setText(" ");
+        getContentPane().add(alertMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 118, 487, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(filePathField, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(addVideoBtn)
-                        .addGap(52, 52, 52)
-                        .addComponent(cancelBtn)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(alertMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filePathField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(62, 62, 62)
-                .addComponent(alertMsg)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addVideoBtn)
-                    .addComponent(cancelBtn))
-                .addContainerGap(119, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/wall-1.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -225,5 +197,6 @@ public class AddVideoPopUp extends javax.swing.JFrame {
     private javax.swing.JButton cancelBtn;
     private javax.swing.JTextField filePathField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

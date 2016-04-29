@@ -10,6 +10,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JFrame;
 import matcher.Matcher;
+import static com.cs490.boom.MusicPanel.musicList;
+import static com.cs490.boom.MusicPanel.myMusicList;
+import static com.cs490.boom.VideoPanel.myVideoList;
+import static com.cs490.boom.VideoPanel.videoList;
+import java.awt.Toolkit;
 
 import musicAnalyzer.MusicAnalyzer;
 
@@ -51,10 +56,29 @@ public class MainFrame extends javax.swing.JFrame {
         videoPanel1 = new com.cs490.boom.VideoPanel();
         matchButton = new javax.swing.JButton();
         exportVideoPanel1 = new com.cs490.boom.ExportVideoPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        Menu_AddMusic = new javax.swing.JMenuItem();
+        Menu_AddVideo = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        Menu_Exit = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().add(musicPanel1, java.awt.BorderLayout.CENTER);
-        getContentPane().add(videoPanel1, java.awt.BorderLayout.LINE_START);
+        setMaximumSize(new java.awt.Dimension(700, 433));
+        setMinimumSize(new java.awt.Dimension(700, 400));
+        setPreferredSize(new java.awt.Dimension(700, 433));
+        getContentPane().setLayout(null);
+
+        musicPanel1.setOpaque(false);
+        getContentPane().add(musicPanel1);
+        musicPanel1.setBounds(358, 47, 339, 285);
+
+        videoPanel1.setOpaque(false);
+        getContentPane().add(videoPanel1);
+        videoPanel1.setBounds(31, 47, 290, 304);
 
         matchButton.setText("Match!");
         matchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -62,8 +86,74 @@ public class MainFrame extends javax.swing.JFrame {
                 matchButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(matchButton, java.awt.BorderLayout.PAGE_END);
-        getContentPane().add(exportVideoPanel1, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(matchButton);
+        matchButton.setBounds(0, 344, 700, 30);
+
+        exportVideoPanel1.setOpaque(false);
+        getContentPane().add(exportVideoPanel1);
+        exportVideoPanel1.setBounds(31, 0, 656, 41);
+
+        jLabel2.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/wall-1.png"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 700, 350);
+
+        jMenuBar2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenuBar2.setFont(new java.awt.Font("Sitka Subheading", 3, 12)); // NOI18N
+
+        jMenu3.setText("File");
+        jMenu3.setFont(new java.awt.Font("Sitka Heading", 3, 12)); // NOI18N
+
+        Menu_AddMusic.setFont(new java.awt.Font("Sitka Subheading", 0, 12)); // NOI18N
+        Menu_AddMusic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/music_ico.png"))); // NOI18N
+        Menu_AddMusic.setText("Add Music");
+        Menu_AddMusic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Menu_AddMusicActionPerformed(evt);
+            }
+        });
+        jMenu3.add(Menu_AddMusic);
+
+        Menu_AddVideo.setFont(new java.awt.Font("Sitka Subheading", 0, 12)); // NOI18N
+        Menu_AddVideo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/video_ico.png"))); // NOI18N
+        Menu_AddVideo.setText("Add Video");
+        Menu_AddVideo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Menu_AddVideoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(Menu_AddVideo);
+        jMenu3.add(jSeparator1);
+
+        Menu_Exit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        Menu_Exit.setFont(new java.awt.Font("Sitka Subheading", 0, 12)); // NOI18N
+        Menu_Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit_ico.png"))); // NOI18N
+        Menu_Exit.setText("Exit");
+        Menu_Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Menu_ExitActionPerformed(evt);
+            }
+        });
+        jMenu3.add(Menu_Exit);
+
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("Help");
+        jMenu4.setFont(new java.awt.Font("Sitka Heading", 3, 12)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Sitka Subheading", 0, 12)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Developer (1).png"))); // NOI18N
+        jMenuItem1.setText("Developers");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
+
+        jMenuBar2.add(jMenu4);
+
+        setJMenuBar(jMenuBar2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -78,6 +168,40 @@ public class MainFrame extends javax.swing.JFrame {
         });
         Matcher.matchAndPlay(sortedVideos);
     }//GEN-LAST:event_matchButtonActionPerformed
+
+    private void Menu_AddMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_AddMusicActionPerformed
+        AddMusicPopUp pop = new AddMusicPopUp();
+        pop.setLocationRelativeTo(null);
+        pop.setVisible(true);
+
+        for (int i = 0; i < myMusicList.size(); i++) {
+            System.out.println(myMusicList.get(i));
+        }
+
+        musicList.updateUI();
+
+    }//GEN-LAST:event_Menu_AddMusicActionPerformed
+
+    private void Menu_AddVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_AddVideoActionPerformed
+        AddVideoPopUp pop = new AddVideoPopUp();
+        pop.setLocationRelativeTo(null);
+        pop.setVisible(true);
+
+        for (int i = 0; i < myVideoList.size(); i++) {
+            System.out.println(myVideoList.get(i));
+        }
+
+        videoList.updateUI();
+    }//GEN-LAST:event_Menu_AddVideoActionPerformed
+
+    private void Menu_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_ExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_Menu_ExitActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,7 +239,16 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Menu_AddMusic;
+    private javax.swing.JMenuItem Menu_AddVideo;
+    private javax.swing.JMenuItem Menu_Exit;
     private com.cs490.boom.ExportVideoPanel exportVideoPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JButton matchButton;
     private com.cs490.boom.MusicPanel musicPanel1;
     private com.cs490.boom.VideoPanel videoPanel1;

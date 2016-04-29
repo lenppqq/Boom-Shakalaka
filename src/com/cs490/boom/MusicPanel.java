@@ -51,11 +51,11 @@ public class MusicPanel extends javax.swing.JPanel {
         musicList = new javax.swing.JList<>();
         musicNameLabel = new javax.swing.JLabel();
         musicGrade = new javax.swing.JLabel();
-        editButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         deleteLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(367, 350));
+        setPreferredSize(new java.awt.Dimension(266, 350));
         setLayout(null);
 
         musicList.setMaximumSize(new java.awt.Dimension(33, 80));
@@ -79,21 +79,12 @@ public class MusicPanel extends javax.swing.JPanel {
         musicNameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         musicNameLabel.setText("MusicName");
         add(musicNameLabel);
-        musicNameLabel.setBounds(188, 11, 107, 22);
+        musicNameLabel.setBounds(188, 11, 102, 26);
 
+        musicGrade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         musicGrade.setText("Rate: -");
         add(musicGrade);
-        musicGrade.setBounds(188, 44, 56, 16);
-
-        editButton.setFont(new java.awt.Font("Lucida Grande", 0, 8)); // NOI18N
-        editButton.setText("Edit");
-        editButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
-            }
-        });
-        add(editButton);
-        editButton.setBounds(248, 43, 42, 29);
+        musicGrade.setBounds(188, 44, 80, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -114,25 +105,43 @@ public class MusicPanel extends javax.swing.JPanel {
             }
         });
         add(jLabel1);
-        jLabel1.setBounds(188, 191, 110, 40);
+        jLabel1.setBounds(190, 190, 110, 40);
 
         deleteLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal1.png"))); // NOI18N
         deleteLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                deleteLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                deleteLabelMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 deleteLabelMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 deleteLabelMouseReleased(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                deleteLabelMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                deleteLabelMouseEntered(evt);
-            }
         });
         add(deleteLabel);
-        deleteLabel.setBounds(188, 229, 110, 40);
+        deleteLabel.setBounds(190, 230, 110, 40);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eNormal.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabel2MouseReleased(evt);
+            }
+        });
+        add(jLabel2);
+        jLabel2.setBounds(190, 60, 80, 50);
     }// </editor-fold>//GEN-END:initComponents
 
     private void musicListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_musicListValueChanged
@@ -166,20 +175,6 @@ public class MusicPanel extends javax.swing.JPanel {
         }
      }//GEN-LAST:event_musicListMouseClicked
 
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
-        if (musicList.isSelectionEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Select a music!", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            EditGradePopUp pop = new EditGradePopUp(musicList.getSelectedValue());
-//          pop.musicName = "hallo";
-            pop.setLocationRelativeTo(null);
-            pop.setVisible(true);
-        }
-        
-        
-    }//GEN-LAST:event_editButtonActionPerformed
-
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
         // TODO add your handling code here:
         ImageIcon II = new ImageIcon(getClass().getResource("/Images/Hover.png"));
@@ -194,7 +189,7 @@ public class MusicPanel extends javax.swing.JPanel {
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
         // TODO add your handling code here:
-        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Inactive.png"));
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Active.png"));
         jLabel1.setIcon(II);
     }//GEN-LAST:event_jLabel1MousePressed
 
@@ -240,7 +235,7 @@ public class MusicPanel extends javax.swing.JPanel {
 
     private void deleteLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteLabelMousePressed
         // TODO add your handling code here:
-        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Inactive1.png"));
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Active1.png"));
         deleteLabel.setIcon(II);
     }//GEN-LAST:event_deleteLabelMousePressed
 
@@ -281,11 +276,41 @@ public class MusicPanel extends javax.swing.JPanel {
         updateNameGradeLabel(value);
     }//GEN-LAST:event_deleteLabelMouseReleased
 
+    private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
+        // TODO add your handling code here:
+         if (musicList.isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Select a music!", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            EditGradePopUp pop = new EditGradePopUp(musicList.getSelectedValue());
+//          pop.musicName = "hallo";
+            pop.setLocationRelativeTo(null);
+            pop.setVisible(true);
+        }
+    }//GEN-LAST:event_jLabel2MouseReleased
+
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/eHover.png"));
+        jLabel2.setIcon(II);
+    }//GEN-LAST:event_jLabel2MouseEntered
+
+    private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/eNormal.png"));
+        jLabel2.setIcon(II);
+    }//GEN-LAST:event_jLabel2MouseExited
+
+    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+        // TODO add your handling code here:
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/eActive.png"));
+        jLabel2.setIcon(II);
+    }//GEN-LAST:event_jLabel2MousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel deleteLabel;
-    private javax.swing.JButton editButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel musicGrade;
     public static javax.swing.JList<String> musicList;

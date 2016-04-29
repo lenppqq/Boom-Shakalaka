@@ -52,7 +52,7 @@ public class temp extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(650, 350));
         getContentPane().setLayout(null);
         getContentPane().add(exportVideoPanel1);
-        exportVideoPanel1.setBounds(220, 90, 141, 79);
+        exportVideoPanel1.setBounds(220, 90, 0, 0);
 
         musicPanel1.setOpaque(false);
         getContentPane().add(musicPanel1);

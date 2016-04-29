@@ -64,7 +64,7 @@ public class EditGradePopUp extends javax.swing.JFrame {
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         musicNameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         musicNameLabel.setText("musicName");

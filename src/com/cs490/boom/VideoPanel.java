@@ -72,14 +72,15 @@ public class VideoPanel extends javax.swing.JPanel {
         jScrollPane1.setBounds(10, 11, 151, 270);
 
         videoNameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        videoNameLabel.setText("videoName");
+        videoNameLabel.setText("VideoName");
         videoNameLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         add(videoNameLabel);
         videoNameLabel.setBounds(173, 11, 141, 28);
 
-        vedioLength.setText("length");
+        vedioLength.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        vedioLength.setText("Length");
         add(vedioLength);
-        vedioLength.setBounds(173, 45, 141, 16);
+        vedioLength.setBounds(180, 40, 141, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal2.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -97,7 +98,7 @@ public class VideoPanel extends javax.swing.JPanel {
             }
         });
         add(jLabel1);
-        jLabel1.setBounds(173, 198, 99, 32);
+        jLabel1.setBounds(180, 190, 100, 40);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal1.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -115,7 +116,7 @@ public class VideoPanel extends javax.swing.JPanel {
             }
         });
         add(jLabel2);
-        jLabel2.setBounds(173, 242, 99, 27);
+        jLabel2.setBounds(180, 230, 100, 40);
     }// </editor-fold>//GEN-END:initComponents
 
     private void videoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_videoListValueChanged
@@ -159,7 +160,7 @@ public class VideoPanel extends javax.swing.JPanel {
 
     private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
         // TODO add your handling code here:
-        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Inactive2.png"));
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Active2.png"));
         jLabel1.setIcon(II);
     }//GEN-LAST:event_jLabel1MousePressed
 
@@ -201,7 +202,7 @@ public class VideoPanel extends javax.swing.JPanel {
 
     private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
         // TODO add your handling code here:
-        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Inactive1.png"));
+        ImageIcon II = new ImageIcon(getClass().getResource("/Images/Active1.png"));
         jLabel2.setIcon(II);
     }//GEN-LAST:event_jLabel2MousePressed
 
