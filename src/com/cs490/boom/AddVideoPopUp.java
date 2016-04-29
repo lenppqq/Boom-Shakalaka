@@ -167,6 +167,7 @@ public class AddVideoPopUp extends javax.swing.JFrame {
             alertMsg.setText("File doesn't exist, please select a music");
         } else {
             Video videofile = new Video(MainFrame.vID++, fileName, filePath, fileLength, fileDuration);
+            System.out.println(videofile.videoId + " " + videofile.path);
             VideoPanel.videos.add(0, videofile);
             VideoPanel.myVideoList.add(0, fileName);
             VideoPanel.videoList.updateUI();

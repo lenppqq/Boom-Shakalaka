@@ -36,46 +36,53 @@ public class ExportVideoPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         exportButton = new javax.swing.JButton();
+        dirLabel = new javax.swing.JLabel();
 
-        exportButton.setText("Export");
+        exportButton.setText("Saved Path");
         exportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportButtonActionPerformed(evt);
             }
         });
 
+        dirLabel.setForeground(new java.awt.Color(102, 102, 102));
+        dirLabel.setText("directory");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(exportButton)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dirLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(exportButton)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addComponent(dirLabel))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new FileNameExtensionFilter("AVI file", "avi"));
-
+        
         int retrival = chooser.showSaveDialog(null);
         if (retrival == JFileChooser.APPROVE_OPTION) {
-            try(FileWriter fw = new FileWriter(chooser.getSelectedFile()+".txt"))
-            {
-                fw.write("new new new");
-            }
-            catch (Exception ex)
-            {
-                ex.printStackTrace();
-            }
+            String a = chooser.getSelectedFile().getAbsolutePath();
+            dirLabel.setText(a);
+//            System.out.print(a);
+//            try(FileWriter fw = new FileWriter(chooser.getSelectedFile()+".txt"))
+//            {
+//                fw.write("new new new");
+//            }
+//            catch (Exception ex)
+//            {
+//                ex.printStackTrace();
+//            }
         } else {
             
         }
@@ -84,6 +91,7 @@ public class ExportVideoPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dirLabel;
     private javax.swing.JButton exportButton;
     // End of variables declaration//GEN-END:variables
 }

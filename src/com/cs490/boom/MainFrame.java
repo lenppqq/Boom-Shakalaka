@@ -50,6 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
         musicPanel1 = new com.cs490.boom.MusicPanel();
         videoPanel1 = new com.cs490.boom.VideoPanel();
         matchButton = new javax.swing.JButton();
+        exportVideoPanel1 = new com.cs490.boom.ExportVideoPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().add(musicPanel1, java.awt.BorderLayout.CENTER);
@@ -62,6 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(matchButton, java.awt.BorderLayout.PAGE_END);
+        getContentPane().add(exportVideoPanel1, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -113,6 +115,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.cs490.boom.ExportVideoPanel exportVideoPanel1;
     private javax.swing.JButton matchButton;
     private com.cs490.boom.MusicPanel musicPanel1;
     private com.cs490.boom.VideoPanel videoPanel1;

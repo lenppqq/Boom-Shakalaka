@@ -9,6 +9,7 @@ import com.cs490.boom.Point;
 import com.cs490.boom.Video;
 
 import musicAnalyzer.MusicAnalyzer;
+//import editer.Startedit;
 /**
 *
 * @author Dou
@@ -18,7 +19,7 @@ public class Matcher {
     public final static int CONST_DIVISION_LENGTH = 100;
     
     public static void matchAndPlay(ArrayList<Video> videos){
-    	String name = "/Users/Len/Dropbox/mij.mp3";// scanner.nextLine();
+    	String name = "/Users/mtdtao/Documents/mij.mp3";// scanner.nextLine();
 		int[][] data = MusicAnalyzer.fullFFTAnalyze(MusicAnalyzer.openMusic(name));
 		int[] videoLength = new int[videos.size()];
     	
@@ -33,14 +34,16 @@ public class Matcher {
 		}
 		
 		int[] order = divisionResult.get(divisionResult.size()-1);
-		
+                //Startedit.addSound("testcases/input.mp4", "testcases/audio.mp3", "testcases/addsound.mp4");
     	for(int i=0; i<divisionResult.size()-1; i++){
     		//System.out.println("CheckPoint 1");
     		ArrayList<EditingStructure> edit = 
     		Matcher.clipMatching(data, videos.get(order[i]), divisionResult.get(i)[0], divisionResult.get(i)[1]);
     		//System.out.println("CheckPoint 2");
-    		for(int j=0; j<edit.size(); j++)
-				System.out.println(edit.get(j).toString());
+                System.out.println(videos.get(order[i]).videoId + " " + videos.get(order[i]).path);
+    		for(int j=0; j<edit.size(); j++) {
+                    System.out.println(edit.get(j).toString());
+                }
     	}
     }
     
