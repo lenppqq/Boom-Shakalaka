@@ -115,8 +115,6 @@ public class TimelineGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jSlider1 = new javax.swing.JSlider();
-        minusButton = new javax.swing.JButton();
-        plusButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         pointButton = new javax.swing.JToggleButton();
         rightButton = new javax.swing.JButton();
@@ -134,13 +132,6 @@ public class TimelineGUI extends javax.swing.JPanel {
             }
         });
 
-        minusButton.setText("-");
-        minusButton.setEnabled(false);
-
-        plusButton.setText("+");
-        plusButton.setToolTipText("");
-        plusButton.setEnabled(false);
-
         jLabel1.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
         jLabel1.setText("0.0");
         jLabel1.setMaximumSize(new java.awt.Dimension(0, 27));
@@ -154,7 +145,6 @@ public class TimelineGUI extends javax.swing.JPanel {
         });
 
         rightButton.setText(">");
-        rightButton.setEnabled(false);
         rightButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rightButtonActionPerformed(evt);
@@ -163,7 +153,6 @@ public class TimelineGUI extends javax.swing.JPanel {
 
         leftButton.setText("<");
         leftButton.setToolTipText("");
-        leftButton.setEnabled(false);
         leftButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 leftButtonActionPerformed(evt);
@@ -202,10 +191,7 @@ public class TimelineGUI extends javax.swing.JPanel {
                     .addComponent(timeLinePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSlider1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(minusButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(plusButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(45, 45, 45)
                         .addComponent(leftButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pointButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,10 +217,6 @@ public class TimelineGUI extends javax.swing.JPanel {
                         .addComponent(tagField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(leftButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pointButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(plusButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(minusButton))
                     .addComponent(rightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -268,12 +250,20 @@ public class TimelineGUI extends javax.swing.JPanel {
         }
         if (playback != null) {
             playback.pause();
-            System.out.println(playback.jumpToTime((long)time));
+            playback.jumpToTime((long) time);
             playback.unpause();
         }
         drawOnPanel();
 
     }//GEN-LAST:event_jSlider1StateChanged
+
+    private void moveToPoint(Point point) {
+        int newTime = point.getStart();
+        double percentage = 100 * (double) (newTime - beginningInWindow) / (double) (endingInWindow - beginningInWindow);
+        int intPercentage = (int) Math.round(percentage);
+        jSlider1.setValue(intPercentage);
+        jSlider1StateChanged(null);
+    }
 
     private void pointButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pointButtonActionPerformed
         if (pointButton.isSelected()) {
@@ -294,29 +284,34 @@ public class TimelineGUI extends javax.swing.JPanel {
     private void rightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightButtonActionPerformed
         Object[] criticalArray;
         criticalArray = criticalPoints.toArray();
-        int index = Arrays.binarySearch(criticalArray, new Integer(time));
-        if (index == criticalArray.length) {
-            index = 0;
+        if (criticalArray.length <= 1) {
+            return;
         }
-        if ((Integer) criticalArray[index] == time) {
-            index++;
+        Object point = criticalArray[0];
+        for (int i = criticalArray.length - 1; i >= 0; i--) {
+            if (((Point)criticalArray[i]).getStart() <= time) {
+                break;
+            }
+            point = criticalArray[i];
         }
+        moveToPoint((Point)point);
     }//GEN-LAST:event_rightButtonActionPerformed
 
     private void leftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftButtonActionPerformed
         Object[] criticalArray;
         criticalArray = criticalPoints.toArray();
-        int index = Arrays.binarySearch(criticalArray, new Integer(time));
+        if (criticalArray.length <= 1) {
+            return;
+        }
+        Object point = criticalArray[criticalArray.length - 1];
+        for (int i = 0; i < criticalArray.length; i++) {
+            if (((Point)criticalArray[i]).getStart() >= time) {
+                break;
+            }
+            point = criticalArray[i];
+        }
 
-        if (index == criticalArray.length) {
-            index--;
-        }
-        if ((Integer) criticalArray[index] == time) {
-            index--;
-        }
-        if (index == -1) {
-            index = criticalArray.length - 1;
-        }
+        moveToPoint((Point)point);
     }//GEN-LAST:event_leftButtonActionPerformed
 
     private void tagFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tagFieldActionPerformed
@@ -354,8 +349,6 @@ public class TimelineGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JButton leftButton;
-    private javax.swing.JButton minusButton;
-    private javax.swing.JButton plusButton;
     private javax.swing.JToggleButton pointButton;
     private javax.swing.JButton rightButton;
     private javax.swing.JTextField tagField;
