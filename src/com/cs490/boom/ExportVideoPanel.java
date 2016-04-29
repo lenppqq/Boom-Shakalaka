@@ -48,6 +48,7 @@ public class ExportVideoPanel extends javax.swing.JPanel {
         dirLabel.setBounds(170, 10, 310, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/sNormal.png"))); // NOI18N
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel1MouseEntered(evt);

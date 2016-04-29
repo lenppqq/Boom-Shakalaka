@@ -83,6 +83,7 @@ public class VideoPanel extends javax.swing.JPanel {
         vedioLength.setBounds(180, 40, 141, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal2.png"))); // NOI18N
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel1MouseEntered(evt);
@@ -101,6 +102,7 @@ public class VideoPanel extends javax.swing.JPanel {
         jLabel1.setBounds(180, 190, 100, 40);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal1.png"))); // NOI18N
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel2MouseEntered(evt);

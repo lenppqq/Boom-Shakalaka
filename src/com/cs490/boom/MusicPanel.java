@@ -87,6 +87,7 @@ public class MusicPanel extends javax.swing.JPanel {
         musicGrade.setBounds(188, 44, 80, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal.png"))); // NOI18N
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
@@ -108,6 +109,7 @@ public class MusicPanel extends javax.swing.JPanel {
         jLabel1.setBounds(190, 190, 110, 40);
 
         deleteLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Normal1.png"))); // NOI18N
+        deleteLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         deleteLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 deleteLabelMouseEntered(evt);
@@ -126,6 +128,7 @@ public class MusicPanel extends javax.swing.JPanel {
         deleteLabel.setBounds(190, 230, 110, 40);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/eNormal.png"))); // NOI18N
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel2MouseEntered(evt);
